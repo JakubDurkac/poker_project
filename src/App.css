@@ -1,0 +1,43 @@
+#root {
+  display: inline-block;
+}
+
+:root {
+  --card-white-color: #fbefe1;
+  --red-gradient: linear-gradient(to bottom right, #0f0000, #2b0000, #720000);
+  --green-gradient: linear-gradient(to bottom right, #002c04, #00440b, #001d02);
+  --dark-gradient: linear-gradient(to bottom right, #161616, #202020, #141414);
+}
+
+body, html {
+  margin: 0;
+  padding: 0;
+  height: 100%;
+  width: 100%;
+  box-sizing: border-box;
+  background-image: var(--red-gradient);
+}
+
+.app-container {
+  margin: 40px 0px 0px 40px;
+  height: 90vh;
+  width: 65vw;
+  min-height: 600px;
+  min-width: 900px;
+  display: flex;
+  flex-direction: row;
+  border: solid 2px var(--card-white-color);
+  border-radius: 10px;
+  overflow: hidden;
+}
+
+.poker-table {
+  background-image: var(--green-gradient);
+  border-right: solid 2px var(--card-white-color);
+  flex: 3;
+}
+
+.offline-menu {
+  background-image: var(--dark-gradient);
+  flex: 1;
+}
