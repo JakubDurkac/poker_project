@@ -7,6 +7,7 @@
   --red-gradient: linear-gradient(to bottom right, #0f0000, #2b0000, #720000);
   --green-gradient: linear-gradient(to bottom right, #002c04, #00440b, #001d02);
   --dark-gradient: linear-gradient(to bottom right, #161616, #202020, #141414);
+  --primary-border: solid 2px var(--card-white-color);
 }
 
 body, html {
@@ -19,25 +20,34 @@ body, html {
 }
 
 .app-container {
-  margin: 40px 0px 0px 40px;
+  display: flex;
+  flex-direction: row;  
   height: 90vh;
-  width: 65vw;
+  width: 65vw;  
   min-height: 600px;
   min-width: 900px;
-  display: flex;
-  flex-direction: row;
+  margin: 40px 0px 0px 40px;
   border: solid 2px var(--card-white-color);
   border-radius: 10px;
   overflow: hidden;
 }
 
-.poker-table {
-  background-image: var(--green-gradient);
-  border-right: solid 2px var(--card-white-color);
+.poker-table-container {
+  display: flex;  
   flex: 3;
+  padding: 25px;  
+  background-image: var(--dark-gradient);
+  border-right: var(--primary-border);
+}
+
+.poker-table {
+  flex: 1;  
+  background-image: var(--green-gradient);
+  border: var(--primary-border);
+  border-radius: 10px;
 }
 
 .offline-menu {
-  background-image: var(--dark-gradient);
   flex: 1;
+  background-image: var(--dark-gradient);
 }
