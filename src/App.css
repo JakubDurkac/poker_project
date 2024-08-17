@@ -3,11 +3,11 @@
 }
 
 :root {
-  --card-white-color: #fbefe1;
-  --red-gradient: linear-gradient(to bottom right, #0f0000, #2b0000, #720000);
-  --green-gradient: linear-gradient(to bottom right, #002c04, #00440b, #001d02);
+  --poker-card-color: #fbefe1;
+  --base-gradient: linear-gradient(to bottom right, #0f0000, #2b0000, #720000);
+  --poker-table-gradient: linear-gradient(to bottom right, #002c04, #00440b, #001d02);
   --dark-gradient: linear-gradient(to bottom right, #161616, #202020, #141414);
-  --primary-border: solid 2px var(--card-white-color);
+  --primary-border: solid 2px var(--poker-card-color);
 }
 
 body, html {
@@ -16,7 +16,7 @@ body, html {
   height: 100%;
   width: 100%;
   box-sizing: border-box;
-  background-image: var(--red-gradient);
+  background-image: var(--base-gradient);
 }
 
 .app-container {
@@ -25,9 +25,9 @@ body, html {
   height: 90vh;
   width: 65vw;  
   min-height: 600px;
-  min-width: 900px;
+  min-width: 1100px;
   margin: 40px 0px 0px 40px;
-  border: solid 2px var(--card-white-color);
+  border: solid 2px var(--poker-card-color);
   border-radius: 10px;
   overflow: hidden;
 }
@@ -41,10 +41,20 @@ body, html {
 }
 
 .poker-table {
+  position: relative;
   flex: 1;  
-  background-image: var(--green-gradient);
+  background-image: var(--poker-table-gradient);
   border: var(--primary-border);
   border-radius: 10px;
+}
+
+.poker-community-area {
+  position: absolute;
+  display: flex;
+  flex-direction: column;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
 }
 
 .offline-menu {
