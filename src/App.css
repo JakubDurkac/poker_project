@@ -60,6 +60,10 @@ body, html {
 #poker-player-4 { top: 30%; right: 20%; transform: translate(50%, -50%); }
 #poker-player-5 { top: 60%; right: 10%; transform: translate(0, -50%); }
 
+.poker-card {
+  height: 120px;
+}
+
 .poker-community-area {
   position: absolute;
   display: flex;
