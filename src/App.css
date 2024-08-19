@@ -5,6 +5,7 @@
 :root {
   --poker-card-color: #fbefe1;
   --placeholder-text-color: #c7c2bc;
+  --dark-text-color: #252525;
   --poker-card-gradient: linear-gradient(to bottom right, #FDFCFB, #eccda8);
   --poker-card-backside-gradient: linear-gradient(to bottom right, #8d0000, #cc0000, #7c0000);
   --base-gradient: linear-gradient(to bottom right, #0f0000, #2b0000, #720000);
@@ -100,6 +101,7 @@ body, html {
   flex: 1;
   max-width: 340px;
   padding: 20px;
+  color: var(--poker-card-color);
   font-weight: 600;
   font-size: 18px;
   background-image: var(--dark-gradient);
@@ -113,7 +115,7 @@ body, html {
   color: var(--poker-card-color);
   border: var(--primary-border);
   background-image: var(--poker-table-gradient);
-  border-radius: 7px;
+  border-radius: 5px;
 }
 
 .name-input::placeholder {
@@ -121,14 +123,34 @@ body, html {
 }
 
 .menu-button:hover {
-  background-image: var(--base-gradient);
+  filter: brightness(1.3);
 }
 
 .menu-button:active {
-  background-image: var(--base-gradient);
-  filter: brightness(1.3);
+  filter: brightness(1.5);
 }
 
 input[type='range'] {
   accent-color: rgb(155, 0, 0);
+}
+
+.available-tables-container {
+  font-size: 14px;
+  font-weight: bold;
+  width: 300px;
+  height: 200px;
+  border: var(--primary-border);
+  border-radius: 5px;
+}
+
+.table-to-join {
+  display: grid;
+  grid-template-columns: 90px 75px 75px 60px;
+  text-align: center;
+  border-bottom: solid 1px var(--poker-card-color);
+}
+
+.available-tables-header {
+  color: var(--dark-text-color);
+  background-image: var(--poker-card-gradient);
 }

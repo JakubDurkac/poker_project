@@ -41,3 +41,9 @@ export interface Card {
     suit: Suit;
     rank: Rank;
 }
+
+export interface Table {
+    name: string;
+    buyIn: number;
+    bigBlind: number;
+}

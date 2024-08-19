@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import OfflineMenu from "./components/OfflineMenu";
 import PokerTable from "./components/PokerTable";
-import { Player, Suit, Rank, Community } from "./types";
+import { Player, Suit, Rank, Community, Table } from "./types";
 
 function App() {
   const playerStates = [
@@ -50,6 +50,24 @@ function App() {
       null,
     ],
   });
+
+  const [availableTables, setAvailableTables] = useState<Table[]>([
+    {
+      name: "High Stakes",
+      buyIn: 2000,
+      bigBlind: 20,
+    },
+    {
+      name: "Casual Play",
+      buyIn: 500,
+      bigBlind: 5,
+    },
+    {
+      name: "Low Stakes",
+      buyIn: 100,
+      bigBlind: 2,
+    },
+  ]);
 
   useEffect(() => {
     // component states modification tests
@@ -114,7 +132,7 @@ function App() {
   return (
     <div className="app-container">
       <PokerTable playerStates={playerStates} communityState={communityState} />
-      <OfflineMenu />
+      <OfflineMenu availableTables={availableTables} />
     </div>
   );
 }
