@@ -1,7 +1,7 @@
 export interface Player {
     name: string;
     balance: number;
-    cards: Card[] | null;
+    cards: Array<Card | null>;
 }
   
 // return type of useState() on Player object

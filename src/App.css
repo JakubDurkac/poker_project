@@ -4,6 +4,8 @@
 
 :root {
   --poker-card-color: #fbefe1;
+  --poker-card-gradient: linear-gradient(to bottom right, #FDFCFB, #eccda8);
+  --poker-card-backside-gradient: linear-gradient(to bottom right, #8d0000, #cc0000, #7c0000);
   --base-gradient: linear-gradient(to bottom right, #0f0000, #2b0000, #720000);
   --poker-table-gradient: linear-gradient(to bottom right, #002c04, #00440b, #001d02);
   --dark-gradient: linear-gradient(to bottom right, #161616, #202020, #141414);
@@ -54,14 +56,22 @@ body, html {
 }
 
 #poker-player-0 { bottom: 10%; left: 50%; transform: translate(-50%, 0); }
-#poker-player-1 { top: 60%; left: 10%; transform: translate(0, -50%); }
+#poker-player-1 { top: 60%; left: 20%; transform: translate(-50%, -50%); }
 #poker-player-2 { top: 30%; left: 20%; transform: translate(-50%, -50%); }
-#poker-player-3 { top: 20%; left: 50%; transform: translate(-50%, 0); }
+#poker-player-3 { top: 10%; left: 50%; transform: translate(-50%, 0); }
 #poker-player-4 { top: 30%; right: 20%; transform: translate(50%, -50%); }
-#poker-player-5 { top: 60%; right: 10%; transform: translate(0, -50%); }
+#poker-player-5 { top: 60%; right: 20%; transform: translate(50%, -50%); }
 
 .poker-card {
   height: 120px;
+  margin: 5px;
+  border: var(--primary-border);
+  border-radius: 5px;
+  background-image: var(--poker-card-gradient);
+}
+
+.poker-card-backside {
+  background-image: var(--poker-card-backside-gradient);
 }
 
 .poker-community-area {

@@ -16,27 +16,27 @@ function App() {
     useState<Player>({
       name: "John",
       balance: 100,
-      cards: null,
+      cards: [null, null],
     }),
     useState<Player>({
       name: "George",
       balance: 100,
-      cards: null,
+      cards: [null, null],
     }),
     useState<Player>({
       name: "Jeffrey",
       balance: 100,
-      cards: null,
+      cards: [null, null],
     }),
     useState<Player>({
       name: "Jerry",
       balance: 100,
-      cards: null,
+      cards: [null, null],
     }),
     useState<Player>({
       name: "Gideon",
       balance: 100,
-      cards: null,
+      cards: [null, null],
     }),
   ];
 
@@ -48,7 +48,7 @@ function App() {
           name: prevPlayer.name,
           balance: prevPlayer.balance + 100,
           cards:
-            prevPlayer.cards && prevPlayer.cards[0].rank === Rank.TWO
+            prevPlayer.cards[0] && prevPlayer.cards[0].rank === Rank.TWO
               ? [
                   { suit: Suit.HEARTS, rank: Rank.THREE },
                   { suit: Suit.HEARTS, rank: Rank.TWO },
