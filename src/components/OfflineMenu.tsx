@@ -4,9 +4,10 @@ import { Table } from "../types";
 
 interface Props {
   availableTables: Table[];
+  joinTable: (name: string) => void;
 }
 
-const OfflineMenu = ({ availableTables }: Props) => {
+const OfflineMenu = ({ availableTables, joinTable }: Props) => {
   const [buyInPrice, setBuyInPrice] = useState(800);
   const [bigBlindPrice, setBigBlindPrice] = useState(20);
 
@@ -42,7 +43,10 @@ const OfflineMenu = ({ availableTables }: Props) => {
         value={bigBlindPrice}
         onChange={handleBigBlindChange}
       />
-      <AvailableTablesList availableTables={availableTables} />
+      <AvailableTablesList
+        availableTables={availableTables}
+        joinTable={joinTable}
+      />
     </div>
   );
 };

@@ -2,9 +2,10 @@ import { Table } from "../types";
 
 interface Props {
   availableTables: Table[];
+  joinTable: (name: string) => void;
 }
 
-const AvailableTablesList = ({ availableTables }: Props) => {
+const AvailableTablesList = ({ availableTables, joinTable }: Props) => {
   return (
     <div className="available-tables-container">
       <div className="available-tables-header table-to-join">
@@ -18,7 +19,12 @@ const AvailableTablesList = ({ availableTables }: Props) => {
           <span>{table.name}</span>
           <span>${table.buyIn}</span>
           <span>${table.bigBlind}</span>
-          <span></span>
+          <button
+            className="join-table-button"
+            onClick={() => joinTable(table.name)}
+          >
+            SIT
+          </button>
         </div>
       ))}
     </div>

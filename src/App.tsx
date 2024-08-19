@@ -51,6 +51,10 @@ function App() {
     ],
   });
 
+  const joinTable = (name: string) => {
+    return;
+  };
+
   const [availableTables, setAvailableTables] = useState<Table[]>([
     {
       name: "High Stakes",
@@ -132,7 +136,7 @@ function App() {
   return (
     <div className="app-container">
       <PokerTable playerStates={playerStates} communityState={communityState} />
-      <OfflineMenu availableTables={availableTables} />
+      <OfflineMenu availableTables={availableTables} joinTable={joinTable} />
     </div>
   );
 }
