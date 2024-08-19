@@ -4,9 +4,15 @@ export interface Player {
     cards: Array<Card | null>;
 }
   
+export interface Community {
+    balance: number;
+    cards: Array<Card | null>;
+}
+
 // return type of useState() on Player object
 // array [<Player (Object)>, <setPlayerObject (Function)>]
 export type PlayerState = [Player, React.Dispatch<React.SetStateAction<Player>>];
+export type CommunityState = [Community, React.Dispatch<React.SetStateAction<Community>>];
 
 export enum Suit {
     HEARTS = 'h',

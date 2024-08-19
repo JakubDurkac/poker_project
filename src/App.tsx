@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import OfflineMenu from "./components/OfflineMenu";
 import PokerTable from "./components/PokerTable";
-import { Player, Suit, Rank } from "./types";
+import { Player, Suit, Rank, Community } from "./types";
 
 function App() {
   const playerStates = [
@@ -40,6 +40,17 @@ function App() {
     }),
   ];
 
+  const communityState = useState<Community>({
+    balance: 0,
+    cards: [
+      { suit: Suit.CLUBS, rank: Rank.ACE },
+      { suit: Suit.SPADES, rank: Rank.QUEEN },
+      { suit: Suit.DIAMONDS, rank: Rank.SEVEN },
+      null,
+      null,
+    ],
+  });
+
   useEffect(() => {
     // simulation of player states modification (for debugging purposes)
     const interval = setInterval(() => {
@@ -73,14 +84,36 @@ function App() {
           cards: prevPlayer.cards,
         };
       });
-    }, 4000);
+
+      communityState[1]((prevCommunity) => {
+        return {
+          balance: prevCommunity.balance + 100,
+          cards:
+            prevCommunity.balance % 200 === 0
+              ? [
+                  prevCommunity.cards[0],
+                  prevCommunity.cards[1],
+                  prevCommunity.cards[2],
+                  prevCommunity.cards[3],
+                  prevCommunity.cards[4],
+                ]
+              : [
+                  prevCommunity.cards[2],
+                  prevCommunity.cards[1],
+                  prevCommunity.cards[0],
+                  prevCommunity.cards[3],
+                  prevCommunity.cards[4],
+                ],
+        };
+      });
+    }, 3000);
 
     return () => clearInterval(interval);
   }, []);
 
   return (
     <div className="app-container">
-      <PokerTable playerStates={playerStates} />
+      <PokerTable playerStates={playerStates} communityState={communityState} />
       <OfflineMenu />
     </div>
   );
