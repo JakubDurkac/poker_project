@@ -4,6 +4,7 @@
 
 :root {
   --poker-card-color: #fbefe1;
+  --placeholder-text-color: #c7c2bc;
   --poker-card-gradient: linear-gradient(to bottom right, #FDFCFB, #eccda8);
   --poker-card-backside-gradient: linear-gradient(to bottom right, #8d0000, #cc0000, #7c0000);
   --base-gradient: linear-gradient(to bottom right, #0f0000, #2b0000, #720000);
@@ -28,6 +29,7 @@ body, html {
   width: 65vw;  
   min-height: 600px;
   min-width: 1100px;
+  max-width: 2000px;
   margin: 40px 0px 0px 40px;
   border: solid 2px var(--poker-card-color);
   border-radius: 10px;
@@ -35,7 +37,7 @@ body, html {
 }
 
 .poker-table-container {
-  display: flex;  
+  display: flex;
   flex: 3;
   padding: 25px;  
   background-image: var(--dark-gradient);
@@ -92,6 +94,41 @@ body, html {
 }
 
 .offline-menu {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
   flex: 1;
+  max-width: 340px;
+  padding: 20px;
+  font-weight: 600;
+  font-size: 18px;
   background-image: var(--dark-gradient);
+}
+
+.menu-button, .name-input {
+  width: 300px;
+  padding: 7px;
+  font-weight: 600;
+  font-size: 26px;
+  color: var(--poker-card-color);
+  border: var(--primary-border);
+  background-image: var(--poker-table-gradient);
+  border-radius: 7px;
+}
+
+.name-input::placeholder {
+  color: var(--placeholder-text-color);
+}
+
+.menu-button:hover {
+  background-image: var(--base-gradient);
+}
+
+.menu-button:active {
+  background-image: var(--base-gradient);
+  filter: brightness(1.3);
+}
+
+input[type='range'] {
+  accent-color: rgb(155, 0, 0);
 }

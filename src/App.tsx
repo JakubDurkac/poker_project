@@ -52,7 +52,7 @@ function App() {
   });
 
   useEffect(() => {
-    // simulation of player states modification (for debugging purposes)
+    // component states modification tests
     const interval = setInterval(() => {
       playerStates[0][1]((prevPlayer) => {
         return {
