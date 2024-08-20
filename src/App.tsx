@@ -220,7 +220,22 @@ function App() {
   };
 
   const joinTable = (tableName: string) => {
-    return;
+    const { name, buyInPrice, bigBlindPrice } = clientAttributes;
+    const dataToSend = {
+      tableName: tableName,
+      playerName: name,
+      playerBuyIn: buyInPrice,
+      playerBigBlind: bigBlindPrice,
+    };
+
+    const message = {
+      type: "joinTableRequest",
+      data: dataToSend,
+    };
+
+    if (clientAttributes.socket) {
+      clientAttributes.socket.send(JSON.stringify(message));
+    }
   };
 
   const setClientIsConnected = (value: boolean) => {

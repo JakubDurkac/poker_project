@@ -13,7 +13,8 @@ const AvailableTablesList = ({
   joinTable,
 }: Props) => {
   const { name, isConnected, buyInPrice, bigBlindPrice } = clientAttributes;
-  const areNonNullAttributes = name && buyInPrice && bigBlindPrice;
+  const areNonNullAttributes =
+    name !== null && buyInPrice !== null && bigBlindPrice !== null;
 
   return (
     <div className="available-tables-container">
