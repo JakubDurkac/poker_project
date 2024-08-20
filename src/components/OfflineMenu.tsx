@@ -37,25 +37,27 @@ const OfflineMenu = ({
     setBigBlindPrice(Number(event.target.value));
   };
 
+  const { isConnected } = clientAttributes;
+
   return (
     <div className="offline-menu">
       <input
-        className="name-input"
+        disabled={isConnected}
+        className={`name-input ${isConnected && "disabled-elem"}`}
         type="text"
         placeholder="Your Name"
         onChange={handleInputNameChange}
       ></input>
       <button
-        disabled={clientAttributes.isConnected}
-        className={`menu-button ${
-          clientAttributes.isConnected && "disabled-button"
-        }`}
+        disabled={isConnected}
+        className={`menu-button ${isConnected && "disabled-elem"}`}
         onClick={() => connectToServer(inputName, buyInPrice, bigBlindPrice)}
       >
         Play Online
       </button>
       <label htmlFor="buy-in-range">Buy-In Price: ${buyInPrice}</label>
       <input
+        disabled={isConnected}
         id="buy-in-range"
         type="range"
         min="100"
@@ -66,6 +68,7 @@ const OfflineMenu = ({
       />
       <label htmlFor="big-blind-range">Big Blind Price: ${bigBlindPrice}</label>
       <input
+        disabled={isConnected}
         id="big-blind-range"
         type="range"
         min="2"

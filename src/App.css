@@ -118,11 +118,11 @@ body, html {
   border-radius: 5px;
 }
 
-.disabled-button {
-  background-image: var(--base-gradient);
+.disabled-elem {
+  background-image: var(--base-gradient) !important;
 }
 
-.disabled-button:hover {
+.disabled-elem:hover {
   filter: brightness(1) !important;
 }
 
