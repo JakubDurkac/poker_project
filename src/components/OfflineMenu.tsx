@@ -4,12 +4,24 @@ import { Table } from "../types";
 
 interface Props {
   availableTables: Table[];
-  joinTable: (name: string) => void;
+  connectToServer: (playerName: string) => void;
+  joinTable: (tableName: string) => void;
 }
 
-const OfflineMenu = ({ availableTables, joinTable }: Props) => {
+const OfflineMenu = ({
+  availableTables,
+  connectToServer,
+  joinTable,
+}: Props) => {
+  const [inputName, setInputName] = useState("");
   const [buyInPrice, setBuyInPrice] = useState(800);
   const [bigBlindPrice, setBigBlindPrice] = useState(20);
+
+  const handleInputNameChange = (
+    event: React.ChangeEvent<HTMLInputElement>
+  ) => {
+    setInputName(event.target.value);
+  };
 
   const handleBuyInChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     setBuyInPrice(Number(event.target.value));
@@ -21,8 +33,18 @@ const OfflineMenu = ({ availableTables, joinTable }: Props) => {
 
   return (
     <div className="offline-menu">
-      <input className="name-input" type="text" placeholder="Your Name"></input>
-      <button className="menu-button">Play Online</button>
+      <input
+        className="name-input"
+        type="text"
+        placeholder="Your Name"
+        onChange={handleInputNameChange}
+      ></input>
+      <button
+        className="menu-button"
+        onClick={() => connectToServer(inputName)}
+      >
+        Play Online
+      </button>
       <label htmlFor="buy-in-range">Buy-In Price: ${buyInPrice}</label>
       <input
         id="buy-in-range"

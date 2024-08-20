@@ -141,6 +141,7 @@ input[type='range'] {
   height: 200px;
   border: var(--primary-border);
   border-radius: 5px;
+  background-image: var(--dark-gradient);
 }
 
 .table-to-join {
@@ -148,6 +149,7 @@ input[type='range'] {
   grid-template-columns: 90px 75px 60px 60px;
   text-align: center;
   border-bottom: solid 1px var(--poker-card-color);
+  background-image: var(--dark-gradient);
 }
 
 .available-tables-header {

@@ -1,9 +1,26 @@
 import { useEffect, useState } from "react";
 import OfflineMenu from "./components/OfflineMenu";
 import PokerTable from "./components/PokerTable";
-import { Player, Suit, Rank, Community, Table } from "./types";
+import {
+  Player,
+  Suit,
+  Rank,
+  Community,
+  Table,
+  ClientAttributes,
+} from "./types";
+
+const initialClientAttributes: ClientAttributes = {
+  socket: null,
+  name: null,
+  isConnected: false,
+};
 
 function App() {
+  const [clientAttributes, setClientAttributes] = useState<ClientAttributes>(
+    initialClientAttributes
+  );
+
   const playerStates = [
     useState<Player>({
       name: "Jack",
@@ -50,10 +67,6 @@ function App() {
       null,
     ],
   });
-
-  const joinTable = (name: string) => {
-    return;
-  };
 
   const [availableTables, setAvailableTables] = useState<Table[]>([
     {
@@ -133,10 +146,55 @@ function App() {
     return () => clearInterval(interval);
   }, []);
 
+  const connectToServer = (playerName: string) => {
+    // todo - if (!isValidName(playerName)) {notify user; return;}
+    setClientAttributes((prevAttributes) => {
+      return {
+        ...prevAttributes,
+        name: playerName,
+        socket: new WebSocket("ws://localhost:3000"),
+      };
+    });
+
+    const { socket } = clientAttributes;
+    if (!socket) {
+      return;
+    }
+
+    socket.addEventListener("open", () => {
+      setClientIsConnected(true);
+      sendInitialMessage();
+    });
+    socket.addEventListener("message", handleIncomingMessage);
+    socket.addEventListener("error", handleError);
+    socket.addEventListener("close", () => {
+      setClientAttributes(initialClientAttributes);
+    });
+  };
+
+  // todo - implement functions
+  const handleIncomingMessage = () => {};
+  const handleError = () => {};
+  const sendInitialMessage = () => {};
+
+  const joinTable = (tableName: string) => {
+    return;
+  };
+
+  const setClientIsConnected = (value: boolean) => {
+    setClientAttributes((prevAttributes) => {
+      return { ...prevAttributes, isConnected: value };
+    });
+  };
+
   return (
     <div className="app-container">
       <PokerTable playerStates={playerStates} communityState={communityState} />
-      <OfflineMenu availableTables={availableTables} joinTable={joinTable} />
+      <OfflineMenu
+        availableTables={availableTables}
+        connectToServer={connectToServer}
+        joinTable={joinTable}
+      />
     </div>
   );
 }

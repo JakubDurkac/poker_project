@@ -1,3 +1,9 @@
+export interface ClientAttributes {
+    socket: WebSocket | null;
+    name: string | null;
+    isConnected: boolean;
+}
+
 export interface Player {
     name: string;
     balance: number;

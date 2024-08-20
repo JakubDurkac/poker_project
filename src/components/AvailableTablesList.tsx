@@ -2,7 +2,7 @@ import { Table } from "../types";
 
 interface Props {
   availableTables: Table[];
-  joinTable: (name: string) => void;
+  joinTable: (tableName: string) => void;
 }
 
 const AvailableTablesList = ({ availableTables, joinTable }: Props) => {
