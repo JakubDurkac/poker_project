@@ -164,9 +164,11 @@ function App() {
 
     newSocket.addEventListener("open", () => {
       setClientIsConnected(true);
-      sendInitialMessage(buyInPrice, bigBlindPrice);
+      sendInitialMessage(newSocket, playerName, buyInPrice, bigBlindPrice);
     });
-    newSocket.addEventListener("message", handleIncomingMessage);
+    newSocket.addEventListener("message", (event) => {
+      handleIncomingMessage(newSocket, playerName, event);
+    });
     newSocket.addEventListener("error", () => {
       console.log("Server Error.");
     });
@@ -175,10 +177,14 @@ function App() {
     });
   };
 
-  const sendInitialMessage = (buyInPrice: number, bigBlindPrice: number) => {
-    const { name, socket } = clientAttributes;
+  const sendInitialMessage = (
+    socket: WebSocket,
+    playerName: string,
+    buyInPrice: number,
+    bigBlindPrice: number
+  ) => {
     const dataToSend = {
-      clientName: name,
+      clientName: playerName,
       buyInPrice: buyInPrice,
       bigBlindPrice: bigBlindPrice,
     };
@@ -193,12 +199,35 @@ function App() {
     }
   };
 
-  const handleIncomingMessage = (event: MessageEvent) => {
-    const message = JSON.parse(event.data.toString());
+  const handleIncomingMessage = (
+    socket: WebSocket,
+    playerName: string,
+    event: MessageEvent
+  ) => {
+    let message;
+    try {
+      message = JSON.parse(event.data.toString());
+    } catch (error) {
+      console.error("JSON parsing failed:", error);
+    }
+
+    if (!message || !message.type) {
+      console.log("Invalid message structure.");
+      return;
+    }
 
     switch (message.type) {
+      case "duplicate":
+        // todo - name taken, notify player
+        socket.close(); // disconnect
+        break;
+
+      case "tablesList":
+        setAvailableTables(message.data);
+        break;
+
       default:
-        return;
+        break;
     }
   };
 
