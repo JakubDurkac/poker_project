@@ -118,6 +118,14 @@ body, html {
   border-radius: 5px;
 }
 
+.disabled-button {
+  background-image: var(--base-gradient);
+}
+
+.disabled-button:hover {
+  filter: brightness(1) !important;
+}
+
 .name-input::placeholder {
   color: var(--placeholder-text-color);
 }
@@ -163,4 +171,10 @@ input[type='range'] {
   font-size: 12px;
   font-weight: bold;
   background-image: var(--poker-card-gradient);
+}
+
+.available-tables-message {
+  padding-top: 25%;
+  text-align: center;
+  font-size: 17px;
 }

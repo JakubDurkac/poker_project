@@ -1,9 +1,10 @@
 import { useState } from "react";
 import AvailableTablesList from "./AvailableTablesList";
-import { Table } from "../types";
+import { ClientAttributes, Table } from "../types";
 
 interface Props {
   availableTables: Table[];
+  clientAttributes: ClientAttributes;
   connectToServer: (
     playerName: string,
     buyInPrice: number,
@@ -14,6 +15,7 @@ interface Props {
 
 const OfflineMenu = ({
   availableTables,
+  clientAttributes,
   connectToServer,
   joinTable,
 }: Props) => {
@@ -44,7 +46,10 @@ const OfflineMenu = ({
         onChange={handleInputNameChange}
       ></input>
       <button
-        className="menu-button"
+        disabled={clientAttributes.isConnected}
+        className={`menu-button ${
+          clientAttributes.isConnected && "disabled-button"
+        }`}
         onClick={() => connectToServer(inputName, buyInPrice, bigBlindPrice)}
       >
         Play Online
@@ -71,6 +76,7 @@ const OfflineMenu = ({
       />
       <AvailableTablesList
         availableTables={availableTables}
+        clientAttributes={clientAttributes}
         joinTable={joinTable}
       />
     </div>

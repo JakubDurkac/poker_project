@@ -1,11 +1,20 @@
-import { Table } from "../types";
+import { ClientAttributes, Table } from "../types";
+import { generateTableHtml, generateTablesHtml } from "./Utils";
 
 interface Props {
   availableTables: Table[];
+  clientAttributes: ClientAttributes;
   joinTable: (tableName: string) => void;
 }
 
-const AvailableTablesList = ({ availableTables, joinTable }: Props) => {
+const AvailableTablesList = ({
+  availableTables,
+  clientAttributes,
+  joinTable,
+}: Props) => {
+  const { name, isConnected, buyInPrice, bigBlindPrice } = clientAttributes;
+  const areNonNullAttributes = name && buyInPrice && bigBlindPrice;
+
   return (
     <div className="available-tables-container">
       <div className="available-tables-header table-to-join">
@@ -14,19 +23,28 @@ const AvailableTablesList = ({ availableTables, joinTable }: Props) => {
         <span>Big Blind</span>
         <span></span>
       </div>
-      {availableTables.map((table) => (
-        <div className="table-to-join" key={table.name}>
-          <span>{table.name}</span>
-          <span>${table.buyIn}</span>
-          <span>${table.bigBlind}</span>
-          <button
-            className="join-table-button"
-            onClick={() => joinTable(table.name)}
-          >
-            SIT
-          </button>
+
+      {isConnected ? (
+        <>
+          {areNonNullAttributes &&
+            generateTableHtml(
+              {
+                name: name,
+                buyIn: buyInPrice,
+                bigBlind: bigBlindPrice,
+                playerNames: [],
+              },
+              joinTable,
+              true // create own table
+            )}
+
+          {generateTablesHtml(availableTables, joinTable)}
+        </>
+      ) : (
+        <div className="available-tables-message">
+          Press Play Online to see tables.
         </div>
-      ))}
+      )}
     </div>
   );
 };

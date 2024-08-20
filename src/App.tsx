@@ -14,6 +14,8 @@ const initialClientAttributes: ClientAttributes = {
   socket: null,
   name: null,
   isConnected: false,
+  buyInPrice: null,
+  bigBlindPrice: null,
 };
 
 function App() {
@@ -68,23 +70,7 @@ function App() {
     ],
   });
 
-  const [availableTables, setAvailableTables] = useState<Table[]>([
-    {
-      name: "High Stakes",
-      buyIn: 2000,
-      bigBlind: 20,
-    },
-    {
-      name: "Casual Play",
-      buyIn: 500,
-      bigBlind: 5,
-    },
-    {
-      name: "Low Stakes",
-      buyIn: 100,
-      bigBlind: 2,
-    },
-  ]);
+  const [availableTables, setAvailableTables] = useState<Table[]>([]);
 
   useEffect(() => {
     // component states modification tests
@@ -159,6 +145,8 @@ function App() {
         ...prevAttributes,
         name: playerName,
         socket: newSocket,
+        buyInPrice: buyInPrice,
+        bigBlindPrice: bigBlindPrice,
       };
     });
 
@@ -246,6 +234,7 @@ function App() {
       <PokerTable playerStates={playerStates} communityState={communityState} />
       <OfflineMenu
         availableTables={availableTables}
+        clientAttributes={clientAttributes}
         connectToServer={connectToServer}
         joinTable={joinTable}
       />

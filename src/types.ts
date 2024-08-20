@@ -2,6 +2,8 @@ export interface ClientAttributes {
     socket: WebSocket | null;
     name: string | null;
     isConnected: boolean;
+    buyInPrice: number | null;
+    bigBlindPrice: number | null;
 }
 
 export interface Player {
@@ -52,4 +54,5 @@ export interface Table {
     name: string;
     buyIn: number;
     bigBlind: number;
+    playerNames: string[];
 }

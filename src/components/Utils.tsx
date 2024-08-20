@@ -1,4 +1,4 @@
-import { Card } from "../types";
+import { Card, Table } from "../types";
 
 export function generateCardsHtml(cards: Array<Card | null>) {
   return (
@@ -14,6 +14,35 @@ export function generateCardsHtml(cards: Array<Card | null>) {
           />
         );
       })}
+    </div>
+  );
+}
+
+export function generateTablesHtml(
+  tables: Table[],
+  joinTable: (name: string) => void
+) {
+  return tables.map((table) => {
+    return generateTableHtml(table, joinTable, false);
+  });
+}
+
+export function generateTableHtml(
+  table: Table,
+  joinTable: (name: string) => void,
+  isCreateNew: boolean
+) {
+  return (
+    <div className="table-to-join" key={table.name}>
+      <span>{table.name}</span>
+      <span>${table.buyIn}</span>
+      <span>${table.bigBlind}</span>
+      <button
+        className="join-table-button"
+        onClick={() => joinTable(isCreateNew ? "#newTable" : table.name)}
+      >
+        {`SIT (${table.playerNames.length}/6)`}
+      </button>
     </div>
   );
 }
