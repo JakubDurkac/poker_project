@@ -146,36 +146,61 @@ function App() {
     return () => clearInterval(interval);
   }, []);
 
-  const connectToServer = (playerName: string) => {
+  const connectToServer = (
+    playerName: string,
+    buyInPrice: number,
+    bigBlindPrice: number
+  ) => {
     // todo - if (!isValidName(playerName)) {notify user; return;}
+
+    const newSocket = new WebSocket("ws://localhost:3000");
     setClientAttributes((prevAttributes) => {
       return {
         ...prevAttributes,
         name: playerName,
-        socket: new WebSocket("ws://localhost:3000"),
+        socket: newSocket,
       };
     });
 
-    const { socket } = clientAttributes;
-    if (!socket) {
-      return;
-    }
-
-    socket.addEventListener("open", () => {
+    newSocket.addEventListener("open", () => {
       setClientIsConnected(true);
-      sendInitialMessage();
+      sendInitialMessage(buyInPrice, bigBlindPrice);
     });
-    socket.addEventListener("message", handleIncomingMessage);
-    socket.addEventListener("error", handleError);
-    socket.addEventListener("close", () => {
+    newSocket.addEventListener("message", handleIncomingMessage);
+    newSocket.addEventListener("error", () => {
+      console.log("Server Error.");
+    });
+    newSocket.addEventListener("close", () => {
       setClientAttributes(initialClientAttributes);
     });
   };
 
-  // todo - implement functions
-  const handleIncomingMessage = () => {};
-  const handleError = () => {};
-  const sendInitialMessage = () => {};
+  const sendInitialMessage = (buyInPrice: number, bigBlindPrice: number) => {
+    const { name, socket } = clientAttributes;
+    const dataToSend = {
+      clientName: name,
+      buyInPrice: buyInPrice,
+      bigBlindPrice: bigBlindPrice,
+    };
+
+    const message = {
+      type: "initial",
+      data: dataToSend,
+    };
+
+    if (socket) {
+      socket.send(JSON.stringify(message));
+    }
+  };
+
+  const handleIncomingMessage = (event: MessageEvent) => {
+    const message = JSON.parse(event.data.toString());
+
+    switch (message.type) {
+      default:
+        return;
+    }
+  };
 
   const joinTable = (tableName: string) => {
     return;

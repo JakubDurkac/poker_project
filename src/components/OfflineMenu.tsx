@@ -4,7 +4,11 @@ import { Table } from "../types";
 
 interface Props {
   availableTables: Table[];
-  connectToServer: (playerName: string) => void;
+  connectToServer: (
+    playerName: string,
+    buyInPrice: number,
+    bigBlindPrice: number
+  ) => void;
   joinTable: (tableName: string) => void;
 }
 
@@ -41,7 +45,7 @@ const OfflineMenu = ({
       ></input>
       <button
         className="menu-button"
-        onClick={() => connectToServer(inputName)}
+        onClick={() => connectToServer(inputName, buyInPrice, bigBlindPrice)}
       >
         Play Online
       </button>
