@@ -72,65 +72,65 @@ function App() {
 
   const [availableTables, setAvailableTables] = useState<Table[]>([]);
 
-  useEffect(() => {
-    // component states modification tests
-    const interval = setInterval(() => {
-      playerStates[0][1]((prevPlayer) => {
-        return {
-          name: prevPlayer.name,
-          balance: prevPlayer.balance + 100,
-          cards:
-            prevPlayer.cards[0] && prevPlayer.cards[0].rank === Rank.TWO
-              ? [
-                  { suit: Suit.HEARTS, rank: Rank.THREE },
-                  { suit: Suit.HEARTS, rank: Rank.TWO },
-                ]
-              : [
-                  { suit: Suit.HEARTS, rank: Rank.TWO },
-                  { suit: Suit.HEARTS, rank: Rank.THREE },
-                ],
-        };
-      });
-      playerStates[2][1]((prevPlayer) => {
-        return {
-          name: prevPlayer.name,
-          balance: prevPlayer.balance + 200,
-          cards: prevPlayer.cards,
-        };
-      });
-      playerStates[4][1]((prevPlayer) => {
-        return {
-          name: prevPlayer.name,
-          balance: prevPlayer.balance + 300,
-          cards: prevPlayer.cards,
-        };
-      });
+  // useEffect(() => {
+  //   // component states modification tests
+  //   const interval = setInterval(() => {
+  //     playerStates[0][1]((prevPlayer) => {
+  //       return {
+  //         name: prevPlayer.name,
+  //         balance: prevPlayer.balance + 100,
+  //         cards:
+  //           prevPlayer.cards[0] && prevPlayer.cards[0].rank === Rank.TWO
+  //             ? [
+  //                 { suit: Suit.HEARTS, rank: Rank.THREE },
+  //                 { suit: Suit.HEARTS, rank: Rank.TWO },
+  //               ]
+  //             : [
+  //                 { suit: Suit.HEARTS, rank: Rank.TWO },
+  //                 { suit: Suit.HEARTS, rank: Rank.THREE },
+  //               ],
+  //       };
+  //     });
+  //     playerStates[2][1]((prevPlayer) => {
+  //       return {
+  //         name: prevPlayer.name,
+  //         balance: prevPlayer.balance + 200,
+  //         cards: prevPlayer.cards,
+  //       };
+  //     });
+  //     playerStates[4][1]((prevPlayer) => {
+  //       return {
+  //         name: prevPlayer.name,
+  //         balance: prevPlayer.balance + 300,
+  //         cards: prevPlayer.cards,
+  //       };
+  //     });
 
-      communityState[1]((prevCommunity) => {
-        return {
-          balance: prevCommunity.balance + 100,
-          cards:
-            prevCommunity.balance % 200 === 0
-              ? [
-                  prevCommunity.cards[0],
-                  prevCommunity.cards[1],
-                  prevCommunity.cards[2],
-                  prevCommunity.cards[3],
-                  prevCommunity.cards[4],
-                ]
-              : [
-                  prevCommunity.cards[2],
-                  prevCommunity.cards[1],
-                  prevCommunity.cards[0],
-                  prevCommunity.cards[3],
-                  prevCommunity.cards[4],
-                ],
-        };
-      });
-    }, 3000);
+  //     communityState[1]((prevCommunity) => {
+  //       return {
+  //         balance: prevCommunity.balance + 100,
+  //         cards:
+  //           prevCommunity.balance % 200 === 0
+  //             ? [
+  //                 prevCommunity.cards[0],
+  //                 prevCommunity.cards[1],
+  //                 prevCommunity.cards[2],
+  //                 prevCommunity.cards[3],
+  //                 prevCommunity.cards[4],
+  //               ]
+  //             : [
+  //                 prevCommunity.cards[2],
+  //                 prevCommunity.cards[1],
+  //                 prevCommunity.cards[0],
+  //                 prevCommunity.cards[3],
+  //                 prevCommunity.cards[4],
+  //               ],
+  //       };
+  //     });
+  //   }, 3000);
 
-    return () => clearInterval(interval);
-  }, []);
+  //   return () => clearInterval(interval);
+  // }, []);
 
   const connectToServer = (
     playerName: string,
@@ -214,9 +214,43 @@ function App() {
         setAvailableTables(message.data);
         break;
 
+      case "tableUpdate":
+        updateLocalTable(message.data, playerName);
+        break;
+
       default:
         break;
     }
+  };
+
+  const updateLocalTable = (table: Table, localPlayerName: string) => {
+    const { playerNames, playerNamesToData, pot, communityCards } = table;
+    const localPlayerNames = reorderNames(playerNames, localPlayerName);
+
+    localPlayerNames.forEach((playerName, index) => {
+      const { cards, balance, currentBid } = playerNamesToData[playerName]; // todo - add currentBid property to player and display it, later might add isDealer, isTheirTurn, lastChoice
+      const setPlayerState = playerStates[index][1];
+      setPlayerState({
+        name: playerName,
+        balance: balance,
+        cards: cards,
+      });
+    });
+
+    const setCommunityState = communityState[1];
+    setCommunityState({
+      balance: pot,
+      cards: communityCards,
+    });
+  };
+
+  const reorderNames = (names: string[], targetName: string) => {
+    const index = names.indexOf(targetName);
+    if (index === -1) {
+      return names;
+    }
+
+    return [...names.slice(index), ...names.slice(0, index)];
   };
 
   const joinTable = (tableName: string) => {
