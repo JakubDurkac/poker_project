@@ -15,6 +15,9 @@ const AvailableTablesList = ({
   const { name, isConnected, buyInPrice, bigBlindPrice } = clientAttributes;
   const areNonNullAttributes =
     name !== null && buyInPrice !== null && bigBlindPrice !== null;
+  const hasTableAlready = availableTables.find((table) => {
+    return table.name === name;
+  });
 
   return (
     <div className="available-tables-container">
@@ -28,12 +31,20 @@ const AvailableTablesList = ({
       {isConnected ? (
         <>
           {areNonNullAttributes &&
+            !hasTableAlready &&
             generateTableHtml(
               {
                 name: name,
                 buyIn: buyInPrice,
                 bigBlind: bigBlindPrice,
                 playerNames: [],
+                pot: 0,
+                communityCards: [null, null, null, null, null],
+                playerNamesToData: {},
+                isActive: false,
+                currentDealerIndex: 0,
+                currentPlayerIndex: 0,
+                deck: null,
               },
               joinTable,
               true // create own table

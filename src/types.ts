@@ -50,9 +50,26 @@ export interface Card {
     rank: Rank;
 }
 
+interface PlayerData {
+    cards: Array<Card | null>;
+    balance: number;
+    currentBid: number;
+}
+
+type PlayerNamesToData = {
+    [playerName: string]: PlayerData;
+};
+
 export interface Table {
     name: string;
     buyIn: number;
     bigBlind: number;
     playerNames: string[];
+    pot: number;
+    communityCards: Array<Card | null>;
+    playerNamesToData: PlayerNamesToData;
+    isActive: boolean;
+    currentDealerIndex: number;
+    currentPlayerIndex: number;
+    deck: null;
 }
