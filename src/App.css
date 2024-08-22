@@ -59,6 +59,7 @@ body, html {
 .poker-player {
   position: absolute;
   text-align: center;
+  padding: 5px;
 }
 
 #poker-player-0 { bottom: 5%; left: 50%; transform: translate(-50%, 0); }
@@ -68,8 +69,35 @@ body, html {
 #poker-player-4 { top: 20%; right: 20%; transform: translate(50%, -50%); }
 #poker-player-5 { top: 80%; right: 20%; transform: translate(50%, -50%); }
 
+.inactive-player {
+  opacity: 0.5;
+}
+
+.their-turn-player {
+  border-radius: 10px;
+  box-shadow:
+    0 0 15px rgba(255, 255, 255, 0.7),
+    inset 0 0 15px rgba(255, 255, 255, 0.7);
+}
+
+.dealer-pin {
+  padding: 0px 5px 0px 5px;
+  font-weight: bold;
+  color: var(--dark-text-color);
+  border-radius: 5px;
+  background-image: var(--poker-card-gradient);
+}
+
+.current-bid {
+  padding: 0px 5px 0px 5px;
+  border-radius: 5px;
+  background-image: var(--poker-card-backside-gradient);
+  border: var(--primary-border);
+}
+
 .poker-card {
-  height: 110px;
+  height: 13vh;
+  min-height: 86px;
   margin: 5px;
   border: var(--primary-border);
   border-radius: 5px;

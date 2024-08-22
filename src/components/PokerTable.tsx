@@ -10,13 +10,7 @@ interface Props {
 const PokerTable = ({ playerStates, communityState }: Props) => {
   const pokerPlayerComponents = playerStates.map((playerState, index) => {
     return (
-      <PokerPlayer
-        key={index}
-        playerIndex={index}
-        playerName={playerState[0].name}
-        playerBalance={playerState[0].balance}
-        playerCards={playerState[0].cards}
-      />
+      <PokerPlayer key={index} playerIndex={index} player={playerState[0]} />
     );
   });
 

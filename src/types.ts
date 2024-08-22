@@ -10,6 +10,11 @@ export interface Player {
     name: string;
     balance: number;
     cards: Array<Card | null>;
+    currentBid: number;
+    isDealer: boolean;
+    isTheirTurn: boolean;
+    status: "none" | "smallBlind" | "bigBlind" | "call" | "raise" | "check" | "fold" | "inactive";
+    statusData: number; // bid amount in case of call, raise or blinds
 }
   
 export interface Community {
@@ -54,6 +59,8 @@ interface PlayerData {
     cards: Array<Card | null>;
     balance: number;
     currentBid: number;
+    status: "none" | "smallBlind" | "bigBlind" | "call" | "raise" | "check" | "fold" | "inactive";
+    statusData: number; // bid amount in case of call, raise or blinds
 }
 
 type PlayerNamesToData = {

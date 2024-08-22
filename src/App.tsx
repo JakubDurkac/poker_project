@@ -25,37 +25,64 @@ function App() {
 
   const playerStates = [
     useState<Player>({
-      name: "Jack",
-      balance: 100,
-      cards: [
-        { suit: Suit.HEARTS, rank: Rank.TWO },
-        { suit: Suit.HEARTS, rank: Rank.THREE },
-      ],
+      name: "Empty Seat",
+      balance: 0,
+      cards: [null, null],
+      currentBid: 0,
+      isDealer: false,
+      isTheirTurn: false,
+      status: "inactive",
+      statusData: 0,
     }),
     useState<Player>({
-      name: "John",
-      balance: 100,
+      name: "Empty Seat",
+      balance: 0,
       cards: [null, null],
+      currentBid: 0,
+      isDealer: false,
+      isTheirTurn: false,
+      status: "inactive",
+      statusData: 0,
     }),
     useState<Player>({
-      name: "George",
-      balance: 100,
+      name: "Empty Seat",
+      balance: 0,
       cards: [null, null],
+      currentBid: 0,
+      isDealer: false,
+      isTheirTurn: false,
+      status: "inactive",
+      statusData: 0,
     }),
     useState<Player>({
-      name: "Jeffrey",
-      balance: 100,
+      name: "Empty Seat",
+      balance: 0,
       cards: [null, null],
+      currentBid: 0,
+      isDealer: false,
+      isTheirTurn: false,
+      status: "inactive",
+      statusData: 0,
     }),
     useState<Player>({
-      name: "Jerry",
-      balance: 100,
+      name: "Empty Seat",
+      balance: 0,
       cards: [null, null],
+      currentBid: 0,
+      isDealer: false,
+      isTheirTurn: false,
+      status: "inactive",
+      statusData: 0,
     }),
     useState<Player>({
-      name: "Gideon",
-      balance: 100,
+      name: "Empty Seat",
+      balance: 0,
       cards: [null, null],
+      currentBid: 0,
+      isDealer: false,
+      isTheirTurn: false,
+      status: "inactive",
+      statusData: 0,
     }),
   ];
 
@@ -224,16 +251,32 @@ function App() {
   };
 
   const updateLocalTable = (table: Table, localPlayerName: string) => {
-    const { playerNames, playerNamesToData, pot, communityCards } = table;
+    const {
+      playerNames,
+      playerNamesToData,
+      pot,
+      communityCards,
+      currentDealerIndex,
+      currentPlayerIndex,
+    } = table;
+    const dealerName = playerNames[currentDealerIndex];
+    const theirTurnName = playerNames[currentPlayerIndex];
+
     const localPlayerNames = reorderNames(playerNames, localPlayerName);
 
     localPlayerNames.forEach((playerName, index) => {
-      const { cards, balance, currentBid } = playerNamesToData[playerName]; // todo - add currentBid property to player and display it, later might add isDealer, isTheirTurn, lastChoice
+      const { cards, balance, currentBid, status, statusData } =
+        playerNamesToData[playerName]; // todo - add currentBid property to player and display it, later might add isDealer, isTheirTurn, lastChoice
       const setPlayerState = playerStates[index][1];
       setPlayerState({
         name: playerName,
         balance: balance,
         cards: cards,
+        currentBid: currentBid,
+        isDealer: playerName === dealerName,
+        isTheirTurn: playerName === theirTurnName,
+        status: status,
+        statusData: statusData,
       });
     });
 

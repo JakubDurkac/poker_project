@@ -1,24 +1,44 @@
-import { Card } from "../types";
+import { Player } from "../types";
 import { generateCardsHtml } from "./Utils";
 
 interface Props {
   playerIndex: number;
-  playerName: string;
-  playerBalance: number;
-  playerCards: Array<Card | null>;
+  player: Player;
 }
 
-const PokerPlayer = ({
-  playerIndex,
-  playerName,
-  playerBalance,
-  playerCards,
-}: Props) => {
+const PokerPlayer = ({ playerIndex, player }: Props) => {
+  const {
+    name,
+    balance,
+    cards,
+    currentBid,
+    isDealer,
+    isTheirTurn,
+    status,
+    statusData,
+  } = player;
+
+  const extraClasses = `${status === "inactive" ? "inactive-player" : ""} ${
+    isTheirTurn ? "their-turn-player" : ""
+  }`;
+
   return (
-    <div className="poker-player" id={`poker-player-${playerIndex}`}>
-      {generateCardsHtml(playerCards)}
-      <div>{playerName}</div>
-      <div>${playerBalance}</div>
+    <div
+      className={`poker-player ${extraClasses}`}
+      id={`poker-player-${playerIndex}`}
+    >
+      <div>{isDealer && <span className="dealer-pin">DEALER</span>}</div>
+      {generateCardsHtml(cards)}
+      <div>{name}</div>
+      <div>
+        ${balance}
+        {currentBid > 0 && (
+          <>
+            {" "}
+            &#8594; <span className="current-bid">${currentBid}</span>
+          </>
+        )}
+      </div>
     </div>
   );
 };
