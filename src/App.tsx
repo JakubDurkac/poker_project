@@ -203,7 +203,6 @@ function App() {
         break;
 
       case "tableUpdate":
-        setClientIsPlaying(true);
         updateLocalTable(message.data, playerName);
         break;
 
@@ -213,6 +212,22 @@ function App() {
   };
 
   const updateLocalTable = (table: Table, localPlayerName: string) => {
+    if (
+      !clientAttributes.isPlaying ||
+      clientAttributes.buyInPrice !== table.buyIn ||
+      clientAttributes.bigBlindPrice !== table.bigBlind
+    ) {
+      setClientAttributes((prevAttributes) => {
+        return {
+          ...prevAttributes,
+          isPlaying: true,
+          isConnected: true,
+          buyInPrice: table.buyIn,
+          bigBlindPrice: table.bigBlind,
+        };
+      });
+    }
+
     const {
       playerNames,
       playerNamesToData,
@@ -295,11 +310,34 @@ function App() {
     });
   };
 
+  const makeInGameChoice = (type: string, data: number) => {
+    const { name, socket } = clientAttributes;
+
+    const dataToSend = {
+      clientName: name,
+      status: type,
+      statusData: data,
+    };
+
+    const message = {
+      type: "inGameChoice",
+      data: dataToSend,
+    };
+
+    if (socket) {
+      socket.send(JSON.stringify(message));
+    }
+  };
+
   return (
     <div className="app-container">
       <PokerTable playerStates={playerStates} communityState={communityState} />
       {clientAttributes.isPlaying ? (
-        <OnlineMenu />
+        <OnlineMenu
+          makeInGameChoice={makeInGameChoice}
+          playerStates={playerStates}
+          clientAttributes={clientAttributes}
+        />
       ) : (
         <OfflineMenu
           availableTables={availableTables}
