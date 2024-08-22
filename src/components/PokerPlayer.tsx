@@ -1,5 +1,5 @@
 import { Player } from "../types";
-import { generateCardsHtml } from "./Utils";
+import { generateCardsHtml, generateStatusMessage } from "./Utils";
 
 interface Props {
   playerIndex: number;
@@ -27,9 +27,17 @@ const PokerPlayer = ({ playerIndex, player }: Props) => {
       className={`poker-player ${extraClasses}`}
       id={`poker-player-${playerIndex}`}
     >
-      <div>{isDealer && <span className="dealer-pin">DEALER</span>}</div>
+      {generateStatusMessage(status, statusData)}
       {generateCardsHtml(cards)}
-      <div>{name}</div>
+      <div>
+        {name}
+        {isDealer && (
+          <>
+            {" "}
+            &#8594; <span className="dealer-pin">DEALER</span>
+          </>
+        )}
+      </div>
       <div>
         ${balance}
         {currentBid > 0 && (

@@ -18,6 +18,43 @@ export function generateCardsHtml(cards: Array<Card | null>) {
   );
 }
 
+export function generateStatusMessage(status: string, statusData: number) {
+  let message = "";
+
+  switch (status) {
+    case "smallBlind":
+      message = `Small Blind $${statusData}.`;
+      break;
+    case "bigBlind":
+      message = `Big Blind $${statusData}.`;
+      break;
+    case "call":
+      message = `Call $${statusData}.`;
+      break;
+    case "raise":
+      message = `Raise to $${statusData}.`;
+      break;
+    case "check":
+      message = `Check.`;
+      break;
+    case "fold":
+      message = `Fold.`;
+      break;
+    default:
+      break;
+  }
+
+  return (
+    <div>
+      {message === "" ? (
+        ""
+      ) : (
+        <span className="player-status-message">{message}</span>
+      )}
+    </div>
+  );
+}
+
 export function generateTablesHtml(
   tables: Table[],
   joinTable: (name: string) => void

@@ -57,9 +57,12 @@ body, html {
 }
 
 .poker-player {
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
   position: absolute;
   text-align: center;
-  padding: 5px;
+  padding: 10px;
 }
 
 #poker-player-0 { bottom: 5%; left: 50%; transform: translate(-50%, 0); }
@@ -88,17 +91,20 @@ body, html {
   background-image: var(--poker-card-gradient);
 }
 
-.current-bid {
+.current-bid, .player-status-message {
   padding: 0px 5px 0px 5px;
   border-radius: 5px;
   background-image: var(--poker-card-backside-gradient);
   border: var(--primary-border);
 }
 
+.player-status-message {
+  background-image: var(--dark-gradient);
+}
+
 .poker-card {
   height: 13vh;
   min-height: 86px;
-  margin: 5px;
   border: var(--primary-border);
   border-radius: 5px;
   background-image: var(--poker-card-gradient);
@@ -110,6 +116,7 @@ body, html {
 
 .poker-cards-box {
   display: flex;
+  gap: 8px;
 }
 
 .poker-community-area {
