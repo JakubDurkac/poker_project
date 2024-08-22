@@ -65,7 +65,7 @@ body, html {
   padding: 10px;
 }
 
-#poker-player-0 { bottom: 5%; left: 50%; transform: translate(-50%, 0); }
+#poker-player-0 { bottom: 4%; left: 50%; transform: translate(-50%, 0); }
 #poker-player-1 { top: 80%; left: 20%; transform: translate(-50%, -50%); }
 #poker-player-2 { top: 20%; left: 20%; transform: translate(-50%, -50%); }
 #poker-player-3 { top: 5%; left: 50%; transform: translate(-50%, 0); }
@@ -129,7 +129,7 @@ body, html {
   transform: translate(-50%, -50%);
 }
 
-.offline-menu {
+.offline-menu, .online-menu {
   display: flex;
   flex-direction: column;
   gap: 20px;

@@ -1,5 +1,6 @@
 import { useEffect, useState } from "react";
 import OfflineMenu from "./components/OfflineMenu";
+import OnlineMenu from "./components/OnlineMenu";
 import PokerTable from "./components/PokerTable";
 import {
   Player,
@@ -15,6 +16,7 @@ const initialClientAttributes: ClientAttributes = {
   socket: null,
   name: null,
   isConnected: false,
+  isPlaying: false,
   buyInPrice: null,
   bigBlindPrice: null,
 };
@@ -201,6 +203,7 @@ function App() {
         break;
 
       case "tableUpdate":
+        setClientIsPlaying(true);
         updateLocalTable(message.data, playerName);
         break;
 
@@ -286,15 +289,25 @@ function App() {
     });
   };
 
+  const setClientIsPlaying = (value: boolean) => {
+    setClientAttributes((prevAttributes) => {
+      return { ...prevAttributes, isPlaying: value };
+    });
+  };
+
   return (
     <div className="app-container">
       <PokerTable playerStates={playerStates} communityState={communityState} />
-      <OfflineMenu
-        availableTables={availableTables}
-        clientAttributes={clientAttributes}
-        connectToServer={connectToServer}
-        joinTable={joinTable}
-      />
+      {clientAttributes.isPlaying ? (
+        <OnlineMenu />
+      ) : (
+        <OfflineMenu
+          availableTables={availableTables}
+          clientAttributes={clientAttributes}
+          connectToServer={connectToServer}
+          joinTable={joinTable}
+        />
+      )}
     </div>
   );
 }

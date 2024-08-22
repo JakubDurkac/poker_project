@@ -2,6 +2,7 @@ export interface ClientAttributes {
     socket: WebSocket | null;
     name: string | null;
     isConnected: boolean;
+    isPlaying: boolean;
     buyInPrice: number | null;
     bigBlindPrice: number | null;
 }
