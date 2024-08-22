@@ -8,6 +8,7 @@ import {
   Community,
   Table,
   ClientAttributes,
+  PlayerState,
 } from "./types";
 
 const initialClientAttributes: ClientAttributes = {
@@ -18,73 +19,31 @@ const initialClientAttributes: ClientAttributes = {
   bigBlindPrice: null,
 };
 
+const emptySeatPlayer: Player = {
+  name: "Empty Seat",
+  balance: 0,
+  cards: [null, null],
+  currentBid: 0,
+  isDealer: false,
+  isTheirTurn: false,
+  status: "inactive",
+  statusData: 0,
+};
+
+function getPlayerCopy(player: Player) {
+  return JSON.parse(JSON.stringify(player));
+}
+
 function App() {
   const [clientAttributes, setClientAttributes] = useState<ClientAttributes>(
     initialClientAttributes
   );
 
-  const playerStates = [
-    useState<Player>({
-      name: "Empty Seat",
-      balance: 0,
-      cards: [null, null],
-      currentBid: 0,
-      isDealer: false,
-      isTheirTurn: false,
-      status: "inactive",
-      statusData: 0,
-    }),
-    useState<Player>({
-      name: "Empty Seat",
-      balance: 0,
-      cards: [null, null],
-      currentBid: 0,
-      isDealer: false,
-      isTheirTurn: false,
-      status: "inactive",
-      statusData: 0,
-    }),
-    useState<Player>({
-      name: "Empty Seat",
-      balance: 0,
-      cards: [null, null],
-      currentBid: 0,
-      isDealer: false,
-      isTheirTurn: false,
-      status: "inactive",
-      statusData: 0,
-    }),
-    useState<Player>({
-      name: "Empty Seat",
-      balance: 0,
-      cards: [null, null],
-      currentBid: 0,
-      isDealer: false,
-      isTheirTurn: false,
-      status: "inactive",
-      statusData: 0,
-    }),
-    useState<Player>({
-      name: "Empty Seat",
-      balance: 0,
-      cards: [null, null],
-      currentBid: 0,
-      isDealer: false,
-      isTheirTurn: false,
-      status: "inactive",
-      statusData: 0,
-    }),
-    useState<Player>({
-      name: "Empty Seat",
-      balance: 0,
-      cards: [null, null],
-      currentBid: 0,
-      isDealer: false,
-      isTheirTurn: false,
-      status: "inactive",
-      statusData: 0,
-    }),
-  ];
+  const playerStates: PlayerState[] = [];
+
+  for (let i = 0; i < 6; i++) {
+    playerStates.push(useState<Player>(getPlayerCopy(emptySeatPlayer)));
+  }
 
   const communityState = useState<Community>({
     balance: 0,
@@ -266,7 +225,7 @@ function App() {
 
     localPlayerNames.forEach((playerName, index) => {
       const { cards, balance, currentBid, status, statusData } =
-        playerNamesToData[playerName]; // todo - add currentBid property to player and display it, later might add isDealer, isTheirTurn, lastChoice
+        playerNamesToData[playerName];
       const setPlayerState = playerStates[index][1];
       setPlayerState({
         name: playerName,
@@ -279,6 +238,12 @@ function App() {
         statusData: statusData,
       });
     });
+
+    // set rest of the playerStates to empty seats
+    for (let i = localPlayerNames.length; i < playerStates.length; i++) {
+      const setPlayerState = playerStates[i][1];
+      setPlayerState(getPlayerCopy(emptySeatPlayer));
+    }
 
     const setCommunityState = communityState[1];
     setCommunityState({
