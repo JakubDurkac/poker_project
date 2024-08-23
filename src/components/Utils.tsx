@@ -32,7 +32,7 @@ export function generateStatusMessage(status: string, statusData: number) {
       message = `Call $${statusData}.`;
       break;
     case "raise":
-      message = `Raise to $${statusData}.`;
+      message = `Raise by $${statusData}.`;
       break;
     case "check":
       message = `Check.`;

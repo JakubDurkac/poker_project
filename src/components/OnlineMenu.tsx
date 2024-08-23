@@ -30,7 +30,7 @@ const OnlineMenu = ({
     callAmount = balance;
   }
 
-  let raiseLowerLimit = maxBid + bigBlind;
+  let raiseLowerLimit = maxBid + bigBlind - currentBid;
   let raiseUpperLimit = balance;
   const isDisabledRaise = raiseLowerLimit > raiseUpperLimit;
 
@@ -60,18 +60,22 @@ const OnlineMenu = ({
         className={`menu-button ${!isTheirTurn && "disabled-elem"}`}
         onClick={() => makeInGameChoice("raise", raiseAmount)}
       >
-        Raise{`${!isTheirTurn || isDisabledRaise ? "" : ` to $${raiseAmount}`}`}
+        Raise{`${!isTheirTurn || isDisabledRaise ? "" : ` by $${raiseAmount}`}`}
       </button>
       <button
         disabled={!isTheirTurn || !(callAmount > 0)}
-        className={`menu-button ${!isTheirTurn && "disabled-elem"}`}
+        className={`menu-button ${
+          (!isTheirTurn || !(callAmount > 0)) && "disabled-elem"
+        }`}
         onClick={() => makeInGameChoice("call", callAmount)}
       >
         Call{`${callAmount > 0 ? ` $${callAmount}` : ""}`}
       </button>
       <button
-        disabled={!isTheirTurn}
-        className={`menu-button ${!isTheirTurn && "disabled-elem"}`}
+        disabled={!isTheirTurn || callAmount > 0}
+        className={`menu-button ${
+          (!isTheirTurn || callAmount > 0) && "disabled-elem"
+        }`}
         onClick={() => makeInGameChoice("check", 0)}
       >
         Check

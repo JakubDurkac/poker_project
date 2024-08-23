@@ -49,76 +49,10 @@ function App() {
 
   const communityState = useState<Community>({
     balance: 0,
-    cards: [
-      { suit: Suit.CLUBS, rank: Rank.ACE },
-      { suit: Suit.SPADES, rank: Rank.QUEEN },
-      { suit: Suit.DIAMONDS, rank: Rank.SEVEN },
-      null,
-      null,
-    ],
+    cards: [null, null, null, null, null],
   });
 
   const [availableTables, setAvailableTables] = useState<Table[]>([]);
-
-  // useEffect(() => {
-  //   // component states modification tests
-  //   const interval = setInterval(() => {
-  //     playerStates[0][1]((prevPlayer) => {
-  //       return {
-  //         name: prevPlayer.name,
-  //         balance: prevPlayer.balance + 100,
-  //         cards:
-  //           prevPlayer.cards[0] && prevPlayer.cards[0].rank === Rank.TWO
-  //             ? [
-  //                 { suit: Suit.HEARTS, rank: Rank.THREE },
-  //                 { suit: Suit.HEARTS, rank: Rank.TWO },
-  //               ]
-  //             : [
-  //                 { suit: Suit.HEARTS, rank: Rank.TWO },
-  //                 { suit: Suit.HEARTS, rank: Rank.THREE },
-  //               ],
-  //       };
-  //     });
-  //     playerStates[2][1]((prevPlayer) => {
-  //       return {
-  //         name: prevPlayer.name,
-  //         balance: prevPlayer.balance + 200,
-  //         cards: prevPlayer.cards,
-  //       };
-  //     });
-  //     playerStates[4][1]((prevPlayer) => {
-  //       return {
-  //         name: prevPlayer.name,
-  //         balance: prevPlayer.balance + 300,
-  //         cards: prevPlayer.cards,
-  //       };
-  //     });
-
-  //     communityState[1]((prevCommunity) => {
-  //       return {
-  //         balance: prevCommunity.balance + 100,
-  //         cards:
-  //           prevCommunity.balance % 200 === 0
-  //             ? [
-  //                 prevCommunity.cards[0],
-  //                 prevCommunity.cards[1],
-  //                 prevCommunity.cards[2],
-  //                 prevCommunity.cards[3],
-  //                 prevCommunity.cards[4],
-  //               ]
-  //             : [
-  //                 prevCommunity.cards[2],
-  //                 prevCommunity.cards[1],
-  //                 prevCommunity.cards[0],
-  //                 prevCommunity.cards[3],
-  //                 prevCommunity.cards[4],
-  //               ],
-  //       };
-  //     });
-  //   }, 3000);
-
-  //   return () => clearInterval(interval);
-  // }, []);
 
   const connectToServer = (
     playerName: string,
