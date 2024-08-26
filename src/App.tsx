@@ -1,11 +1,9 @@
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import OfflineMenu from "./components/OfflineMenu";
 import OnlineMenu from "./components/OnlineMenu";
 import PokerTable from "./components/PokerTable";
 import {
   Player,
-  Suit,
-  Rank,
   Community,
   Table,
   ClientAttributes,
@@ -235,12 +233,6 @@ function App() {
   const setClientIsConnected = (value: boolean) => {
     setClientAttributes((prevAttributes) => {
       return { ...prevAttributes, isConnected: value };
-    });
-  };
-
-  const setClientIsPlaying = (value: boolean) => {
-    setClientAttributes((prevAttributes) => {
-      return { ...prevAttributes, isPlaying: value };
     });
   };
 

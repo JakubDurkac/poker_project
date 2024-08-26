@@ -30,6 +30,7 @@ body, html {
   width: 95vw;  
   min-height: 600px;
   min-width: 1100px;
+  max-height: 2000px;
   max-width: 2000px;
   margin: 40px 0px 0px 40px;
   border: solid 2px var(--poker-card-color);
@@ -49,7 +50,7 @@ body, html {
   position: relative;
   flex: 1;
   font-weight: 600;
-  font-size: 18px;
+  font-size: clamp(16px, 2.3vh, 36px);
   color: var(--poker-card-color);
   background-image: var(--poker-table-gradient);
   border: var(--primary-border);

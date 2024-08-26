@@ -60,6 +60,7 @@ interface PlayerData {
     cards: Array<Card | null>;
     balance: number;
     currentBid: number;
+    totalBid: number;
     status: "none" | "smallBlind" | "bigBlind" | "call" | "raise" | "check" | "fold" | "inactive";
     statusData: number; // bid amount in case of call, raise or blinds
 }
