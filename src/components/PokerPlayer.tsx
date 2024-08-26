@@ -20,7 +20,7 @@ const PokerPlayer = ({ playerIndex, player }: Props) => {
 
   const extraClasses = `${status === "inactive" ? "inactive-player" : ""} ${
     isTheirTurn ? "their-turn-player" : ""
-  }`;
+  } ${status === "fold" ? "fold-player" : ""}`;
 
   return (
     <div

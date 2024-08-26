@@ -74,6 +74,10 @@ body, html {
 #poker-player-5 { top: 80%; right: 20%; transform: translate(50%, -50%); }
 
 .inactive-player {
+  opacity: 0;
+}
+
+.fold-player {
   opacity: 0.5;
 }
 

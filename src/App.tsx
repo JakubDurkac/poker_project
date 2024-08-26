@@ -173,27 +173,46 @@ function App() {
 
     const localPlayerNames = reorderNames(playerNames, localPlayerName);
 
-    localPlayerNames.forEach((playerName, index) => {
-      const { cards, balance, currentBid, status, statusData } =
-        playerNamesToData[playerName];
-      const setPlayerState = playerStates[index][1];
-      setPlayerState({
-        name: playerName,
-        balance: balance,
-        cards: cards,
-        currentBid: currentBid,
-        isDealer: playerName === dealerName,
-        isTheirTurn: playerName === theirTurnName,
-        status: status,
-        statusData: statusData,
-      });
-    });
-
-    // set rest of the playerStates to empty seats
-    for (let i = localPlayerNames.length; i < playerStates.length; i++) {
-      const setPlayerState = playerStates[i][1];
-      setPlayerState(getPlayerCopy(emptySeatPlayer));
+    // positioning players symmetrically
+    let seatsIndexes = [0, 1, 2, 3, 4, 5];
+    switch (localPlayerNames.length) {
+      case 2:
+        seatsIndexes = [0, 3, 1, 2, 4, 5];
+        break;
+      case 3:
+        seatsIndexes = [0, 2, 4, 1, 3, 5];
+        break;
+      case 4:
+        seatsIndexes = [0, 2, 3, 4, 1, 5];
+        break;
+      case 5:
+        seatsIndexes = [0, 1, 2, 4, 5, 3];
+        break;
+      default:
+        break;
     }
+
+    seatsIndexes.forEach((seatIndex, playerIndex) => {
+      const setPlayerState = playerStates[seatIndex][1];
+      if (playerIndex < localPlayerNames.length) {
+        const playerName = localPlayerNames[playerIndex];
+        const { cards, balance, currentBid, status, statusData } =
+          playerNamesToData[playerName];
+
+        setPlayerState({
+          name: playerName,
+          balance: balance,
+          cards: cards,
+          currentBid: currentBid,
+          isDealer: playerName === dealerName,
+          isTheirTurn: playerName === theirTurnName,
+          status: status,
+          statusData: statusData,
+        });
+      } else {
+        setPlayerState(getPlayerCopy(emptySeatPlayer));
+      }
+    });
 
     const setCommunityState = communityState[1];
     setCommunityState({
