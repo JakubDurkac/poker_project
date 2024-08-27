@@ -87,5 +87,8 @@ export interface Showdown {
     playerName: string;
     playerCards: Card[];
     overallRating: number;
-    handTypeRating: number;
+    handAttributes: {
+        rating: number;
+        tieBreakers: number[]
+    };
 }

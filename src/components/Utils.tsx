@@ -13,6 +13,24 @@ const ratingToHand = [
   "Straight Flush",
 ];
 
+const rankValueToWord = [
+  "",
+  "",
+  "2",
+  "3",
+  "4",
+  "5",
+  "6",
+  "7",
+  "8",
+  "9",
+  "10",
+  "J",
+  "Q",
+  "K",
+  "A",
+];
+
 export function generateCardsHtml(cards: Array<Card | null>) {
   return (
     <div className="poker-cards-box">
@@ -107,7 +125,6 @@ export function generateShowdownHtml(showdownObjects: Showdown[]) {
       previousRating = obj.overallRating;
     }
 
-    const rankClassname = `showdown-place-${currentRank} showdown-place`;
     return (
       <>
         <div className="showdown-line" key={obj.playerName}>
@@ -124,12 +141,51 @@ export function generateShowdownHtml(showdownObjects: Showdown[]) {
           </div>
           <div className="showdown-hand">
             <div>{generateCardsIconsHtml(obj.playerCards)}</div>
-            <div>{ratingToHand[obj.handTypeRating]}</div>
+            <div>{`${
+              ratingToHand[obj.handAttributes.rating]
+            } (${formatTieBreakers(obj.handAttributes)})`}</div>
           </div>
         </div>
       </>
     );
   });
+}
+
+function formatTieBreakers(handAttributes: {
+  rating: number;
+  tieBreakers: number[];
+}) {
+  const { rating, tieBreakers } = handAttributes;
+  const handName = ratingToHand[rating];
+  const tieBreaker1 = rankValueToWord[tieBreakers[0]];
+  const tieBreaker2 = rankValueToWord[tieBreakers[1]];
+  if (handName === "High Card") {
+    return tieBreaker1;
+  } else if (
+    handName === "Pair" ||
+    handName === "Three Of A Kind" ||
+    handName === "Four Of A Kind"
+  ) {
+    return `${tieBreaker1}s`;
+  } else if (handName === "Two Pair") {
+    return `${tieBreaker1}s, ${tieBreaker2}s`;
+  } else if (handName === "Full House") {
+    return `${tieBreaker1}s over ${tieBreaker2}s`;
+  } else if (handName === "Straight" || handName === "Straight Flush") {
+    const tieBreakersCopy = [];
+    for (let i = 0; i < 5; i++) {
+      tieBreakersCopy.push(rankValueToWord[tieBreakers[0] - i]);
+    }
+    return tieBreakersCopy.join(", ");
+  } else if (handName === "Flush") {
+    return tieBreakers
+      .map((tieBreaker) => {
+        return rankValueToWord[tieBreaker];
+      })
+      .join(", ");
+  }
+
+  return "";
 }
 
 function generateCardsIconsHtml(cards: Card[]) {
