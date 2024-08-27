@@ -8,6 +8,7 @@ import {
   Table,
   ClientAttributes,
   PlayerState,
+  Showdown,
 } from "./types";
 
 const initialClientAttributes: ClientAttributes = {
@@ -51,6 +52,7 @@ function App() {
   });
 
   const [availableTables, setAvailableTables] = useState<Table[]>([]);
+  const [showdownObjects, setShowdownObjects] = useState<Showdown[]>([]);
 
   const connectToServer = (
     playerName: string,
@@ -141,6 +143,10 @@ function App() {
       case "bankrupt":
         // notify player in log
         setClientIsPlaying(false);
+        break;
+
+      case "showdown":
+        setShowdownObjects(message.data);
         break;
 
       default:
@@ -293,6 +299,7 @@ function App() {
           makeInGameChoice={makeInGameChoice}
           playerStates={playerStates}
           clientAttributes={clientAttributes}
+          showdownObjects={showdownObjects}
         />
       ) : (
         <OfflineMenu

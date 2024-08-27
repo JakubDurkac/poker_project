@@ -12,6 +12,9 @@
   --poker-table-gradient: linear-gradient(to bottom right, #002c04, #00440b, #001d02);
   --dark-gradient: linear-gradient(to bottom right, #161616, #202020, #141414);
   --primary-border: solid 2px var(--poker-card-color);
+  --gold-gradient: linear-gradient(45deg, #FFD700, #FFA500);
+  --silver-gradient: linear-gradient(45deg, #C0C0C0, #808080);
+  --bronze-gradient: linear-gradient(45deg, #CD7F32, #8B4513);
 }
 
 body, html {
@@ -116,6 +119,13 @@ body, html {
   background-image: var(--poker-card-gradient);
 }
 
+.poker-card-icon {
+  margin-top: 2px;
+  height: 35px;
+  border-radius: 2px;
+  background-image: var(--poker-card-gradient);
+}
+
 .poker-card-backside {
   background-image: var(--poker-card-backside-gradient);
 }
@@ -123,6 +133,11 @@ body, html {
 .poker-cards-box {
   display: flex;
   gap: 8px;
+}
+
+.poker-cards-icons-box {
+  display: flex;
+  gap: 3px;
 }
 
 .poker-community-area {
@@ -183,7 +198,7 @@ input[type='range'] {
   accent-color: rgb(155, 0, 0);
 }
 
-.available-tables-container {
+.available-tables-container, .showdown-container {
   font-size: 14px;
   font-weight: bold;
   width: 300px;
@@ -191,17 +206,58 @@ input[type='range'] {
   border: var(--primary-border);
   border-radius: 5px;
   background-image: var(--dark-gradient);
+  overflow-y: auto;
+  scrollbar-width: thin;
+  scrollbar-color: #000000 #272727;
 }
 
-.table-to-join {
+.table-to-join, .showdown-line {
   display: grid;
-  grid-template-columns: 90px 75px 60px 60px;
   text-align: center;
   border-bottom: solid 1px var(--poker-card-color);
   background-image: var(--dark-gradient);
 }
 
-.available-tables-header {
+.table-to-join {
+  grid-template-columns: 90px 75px 60px 60px;
+}
+
+.showdown-line {
+  grid-template-columns: 85px 195px;
+}
+
+.showdown-name {
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+  align-self: center;
+}
+
+.showdown-hand {
+  border-left: solid 1px var(--poker-card-color);
+  padding-left: 3px;
+}
+
+.showdown-place {
+  color: var(--dark-text-color);
+  background-image: var(--poker-card-gradient);
+  padding: 0px 4px 0px 4px;
+  border-radius: 5px;
+}
+
+#showdown-place-1 {
+  background-image: var(--gold-gradient);
+}
+
+#showdown-place-2 {
+  background-image: var(--silver-gradient);
+}
+
+#showdown-place-3 {
+  background-image: var(--bronze-gradient);
+}
+
+.available-tables-header, .showdown-header {
   color: var(--dark-text-color);
   background-image: var(--poker-card-gradient);
 }
@@ -214,7 +270,7 @@ input[type='range'] {
   background-image: var(--poker-card-gradient);
 }
 
-.available-tables-message {
+.available-tables-message, .showdown-message {
   padding-top: 25%;
   text-align: center;
   font-size: 17px;

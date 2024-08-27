@@ -1,16 +1,19 @@
 import { useEffect, useState } from "react";
-import { ClientAttributes, PlayerState } from "../types";
+import { ClientAttributes, PlayerState, Showdown } from "../types";
+import LastShowdownInfo from "./LastShowdownInfo";
 
 interface Props {
   makeInGameChoice: (type: string, data: number) => void;
   playerStates: PlayerState[];
   clientAttributes: ClientAttributes;
+  showdownObjects: Showdown[];
 }
 
 const OnlineMenu = ({
   makeInGameChoice,
   playerStates,
   clientAttributes,
+  showdownObjects,
 }: Props) => {
   const localPlayer = playerStates[0][0];
   const { balance, currentBid, isTheirTurn } = localPlayer;
@@ -112,6 +115,7 @@ const OnlineMenu = ({
       >
         Fold
       </button>
+      <LastShowdownInfo showdownObjects={showdownObjects} />
     </div>
   );
 };

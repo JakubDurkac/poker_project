@@ -82,3 +82,10 @@ export interface Table {
     currentPlayerIndex: number;
     deck: null;
 }
+
+export interface Showdown {
+    playerName: string;
+    playerCards: Card[];
+    overallRating: number;
+    handTypeRating: number;
+}

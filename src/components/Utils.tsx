@@ -1,4 +1,17 @@
-import { Card, Table } from "../types";
+import { Card, Showdown, Table } from "../types";
+
+const ratingToHand = [
+  "None",
+  "High Card",
+  "Pair",
+  "Two Pair",
+  "Three Of A Kind",
+  "Straight",
+  "Flush",
+  "Full House",
+  "Four Of A kind",
+  "Straight Flush",
+];
 
 export function generateCardsHtml(cards: Array<Card | null>) {
   return (
@@ -80,6 +93,59 @@ export function generateTableHtml(
       >
         {`SIT (${table.playerNames.length}/6)`}
       </button>
+    </div>
+  );
+}
+
+export function generateShowdownHtml(showdownObjects: Showdown[]) {
+  let currentRank = 1;
+  let previousRating = showdownObjects[0].overallRating;
+
+  return showdownObjects.map((obj) => {
+    if (obj.overallRating !== previousRating) {
+      currentRank++;
+      previousRating = obj.overallRating;
+    }
+
+    const rankClassname = `showdown-place-${currentRank} showdown-place`;
+    return (
+      <>
+        <div className="showdown-line" key={obj.playerName}>
+          <div className="showdown-name">
+            <div>{obj.playerName}</div>
+            <div>
+              <span
+                className="showdown-place"
+                id={`showdown-place-${currentRank}`}
+              >
+                {currentRank}.
+              </span>
+            </div>
+          </div>
+          <div className="showdown-hand">
+            <div>{generateCardsIconsHtml(obj.playerCards)}</div>
+            <div>{ratingToHand[obj.handTypeRating]}</div>
+          </div>
+        </div>
+      </>
+    );
+  });
+}
+
+function generateCardsIconsHtml(cards: Card[]) {
+  return (
+    <div className="poker-cards-icons-box">
+      {cards.map((card, index) => {
+        return (
+          <img
+            key={index}
+            className="poker-card-icon"
+            src={`/src/assets/card-images/${
+              String(card.suit) + String(card.rank)
+            }.png`}
+          />
+        );
+      })}
     </div>
   );
 }
