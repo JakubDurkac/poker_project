@@ -31,7 +31,7 @@ body, html {
   min-height: 600px;
   min-width: 1100px;
   max-height: 2000px;
-  max-width: 2000px;
+  max-width: 4000px;
   margin: 40px 0px 0px 40px;
   border: solid 2px var(--poker-card-color);
   border-radius: 10px;
@@ -110,6 +110,7 @@ body, html {
 .poker-card {
   height: 13vh;
   min-height: 86px;
+  max-height: 180px;
   border: var(--primary-border);
   border-radius: 5px;
   background-image: var(--poker-card-gradient);
