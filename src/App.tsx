@@ -9,6 +9,8 @@ import {
   ClientAttributes,
   PlayerState,
   Showdown,
+  Suit,
+  Rank,
 } from "./types";
 
 const initialClientAttributes: ClientAttributes = {
@@ -48,7 +50,13 @@ function App() {
 
   const communityState = useState<Community>({
     balance: 0,
-    cards: [null, null, null, null, null],
+    cards: [
+      { suit: Suit.DIAMONDS, rank: Rank.TEN },
+      { suit: Suit.DIAMONDS, rank: Rank.JACK },
+      { suit: Suit.DIAMONDS, rank: Rank.QUEEN },
+      { suit: Suit.DIAMONDS, rank: Rank.KING },
+      { suit: Suit.DIAMONDS, rank: Rank.ACE },
+    ],
   });
 
   const [availableTables, setAvailableTables] = useState<Table[]>([]);
@@ -293,7 +301,11 @@ function App() {
 
   return (
     <div className="app-container">
-      <PokerTable playerStates={playerStates} communityState={communityState} />
+      <PokerTable
+        playerStates={playerStates}
+        communityState={communityState}
+        clientAttributes={clientAttributes}
+      />
       {clientAttributes.isPlaying ? (
         <OnlineMenu
           makeInGameChoice={makeInGameChoice}

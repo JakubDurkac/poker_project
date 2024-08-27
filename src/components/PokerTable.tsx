@@ -1,13 +1,18 @@
-import { CommunityState, PlayerState } from "../types";
+import { ClientAttributes, CommunityState, PlayerState } from "../types";
 import PokerPlayer from "./PokerPlayer";
 import { generateCardsHtml } from "./Utils";
 
 interface Props {
   playerStates: PlayerState[];
   communityState: CommunityState;
+  clientAttributes: ClientAttributes;
 }
 
-const PokerTable = ({ playerStates, communityState }: Props) => {
+const PokerTable = ({
+  playerStates,
+  communityState,
+  clientAttributes,
+}: Props) => {
   const pokerPlayerComponents = playerStates.map((playerState, index) => {
     return (
       <PokerPlayer key={index} playerIndex={index} player={playerState[0]} />
@@ -19,7 +24,15 @@ const PokerTable = ({ playerStates, communityState }: Props) => {
       <div className="poker-table">
         <div className="poker-community-area">
           {generateCardsHtml(communityState[0].cards)}
-          <div>${communityState[0].balance}</div>
+          {clientAttributes.isConnected ? (
+            <div>${communityState[0].balance}</div>
+          ) : (
+            <div className="welcome-message">
+              <span className="message-word">Texas</span>{" "}
+              <span className="message-word">Hold'Em</span>{" "}
+              <span className="message-word">Poker</span>
+            </div>
+          )}
         </div>
         {pokerPlayerComponents}
       </div>

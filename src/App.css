@@ -4,6 +4,7 @@
 
 :root {
   --poker-card-color: #fbefe1;
+  --poker-card-hearts-color: #F8312F;
   --placeholder-text-color: #c7c2bc;
   --dark-text-color: #252525;
   --poker-card-gradient: linear-gradient(to bottom right, #FDFCFB, #eccda8);
@@ -274,4 +275,47 @@ input[type='range'] {
   padding-top: 25%;
   text-align: center;
   font-size: 17px;
+}
+
+@keyframes welcomeBottomShadowCycle {
+  0% {
+    box-shadow: 0 6px 1px -2px var(--poker-card-color);
+  }
+  50% {
+    box-shadow: 0 6px 1px -2px var(--poker-card-hearts-color);
+  }
+  100% {
+    box-shadow: 0 6px 1px -2px var(--poker-card-color);
+  }
+}
+
+@keyframes welcomeWordColorCycle {
+  0%, 20% {
+    color: var(--poker-card-color);
+  }
+  30% {
+    color: var(--poker-card-hearts-color);
+  }
+  50%, 100% {
+    color: var(--poker-card-color);
+  }
+}
+
+.welcome-message {
+  font-size: clamp(35px, 5vh, 70px);
+  text-shadow: 10px 10px 10px rgba(0, 0, 0, 0.3);
+  border-radius: 15px;
+  animation: welcomeBottomShadowCycle 4s infinite;
+}
+
+.message-word {
+  animation: welcomeWordColorCycle 12s infinite;
+}
+
+.message-word:nth-child(2) {
+  animation-delay: 4s;
+}
+
+.message-word:nth-child(3) {
+  animation-delay: 8s;
 }
