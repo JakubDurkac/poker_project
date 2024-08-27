@@ -43,6 +43,29 @@ const OnlineMenu = ({
     setRaiseAmount(raiseLowerLimit);
   }, [raiseLowerLimit]);
 
+  let isChoiceAlreadyMade = false;
+  useEffect(() => {
+    let isClientAlone = true;
+    for (let i = 1; i < playerStates.length; i++) {
+      if (
+        playerStates[i][0].status !== "fold" &&
+        playerStates[i][0].status !== "inactive"
+      ) {
+        isClientAlone = false;
+        break;
+      }
+    }
+
+    if (isClientAlone && isTheirTurn) {
+      makeInGameChoice("check", 0); // auto check if client stayed alone
+      isChoiceAlreadyMade = true;
+    }
+  }, [playerStates]);
+
+  if (isTheirTurn && balance === 0 && !isChoiceAlreadyMade) {
+    makeInGameChoice("check", 0); // auto check if already went all-in
+  }
+
   return (
     <div className="online-menu">
       <input
@@ -57,7 +80,9 @@ const OnlineMenu = ({
       />
       <button
         disabled={!isTheirTurn || isDisabledRaise}
-        className={`menu-button ${!isTheirTurn && "disabled-elem"}`}
+        className={`menu-button ${
+          (!isTheirTurn || isDisabledRaise) && "disabled-elem"
+        }`}
         onClick={() => makeInGameChoice("raise", raiseAmount)}
       >
         Raise{`${!isTheirTurn || isDisabledRaise ? "" : ` by $${raiseAmount}`}`}

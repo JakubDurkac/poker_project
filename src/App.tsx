@@ -138,6 +138,11 @@ function App() {
         updateLocalTable(message.data, playerName);
         break;
 
+      case "bankrupt":
+        // notify player in log
+        setClientIsPlaying(false);
+        break;
+
       default:
         break;
     }
@@ -252,6 +257,12 @@ function App() {
   const setClientIsConnected = (value: boolean) => {
     setClientAttributes((prevAttributes) => {
       return { ...prevAttributes, isConnected: value };
+    });
+  };
+
+  const setClientIsPlaying = (value: boolean) => {
+    setClientAttributes((prevAttributes) => {
+      return { ...prevAttributes, isPlaying: value };
     });
   };
 
