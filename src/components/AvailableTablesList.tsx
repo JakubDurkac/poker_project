@@ -29,7 +29,7 @@ const AvailableTablesList = ({
       </div>
 
       {isConnected ? (
-        <>
+        <div className="tables-list">
           {areNonNullAttributes &&
             !hasTableAlready &&
             generateTableHtml(
@@ -51,7 +51,7 @@ const AvailableTablesList = ({
             )}
 
           {generateTablesHtml(availableTables, joinTable)}
-        </>
+        </div>
       ) : (
         <div className="available-tables-message">
           Press Play Online to see tables.

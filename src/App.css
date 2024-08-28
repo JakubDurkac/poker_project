@@ -162,6 +162,9 @@ body, html {
   font-weight: 600;
   font-size: 18px;
   background-image: var(--dark-gradient);
+  overflow-y: auto;
+  scrollbar-width: thin;
+  scrollbar-color: #000000 #272727;
 }
 
 .menu-button, .name-input {
@@ -187,11 +190,11 @@ body, html {
   color: var(--placeholder-text-color);
 }
 
-.menu-button:hover, .join-table-button:hover {
+.menu-button:hover, .join-table-button:hover, .chat-send-button:hover {
   filter: brightness(1.2);
 }
 
-.menu-button:active, .join-table-button:active {
+.menu-button:active, .join-table-button:active, .chat-send-button:active {
   filter: brightness(1.4);
 }
 
@@ -199,14 +202,23 @@ input[type='range'] {
   accent-color: rgb(155, 0, 0);
 }
 
-.available-tables-container, .showdown-container {
+.available-tables-container, .showdown-container, .game-log-container {
+  display: flex;
+  flex-direction: column;
+  position: relative;
   font-size: 14px;
   font-weight: bold;
   width: 300px;
-  height: 200px;
+  min-height: 150px;
+  flex: 1;
   border: var(--primary-border);
   border-radius: 5px;
   background-image: var(--dark-gradient);
+  overflow: hidden;
+}
+
+.tables-list, .showdown-list, .game-log-messages {
+  flex: 1;
   overflow-y: auto;
   scrollbar-width: thin;
   scrollbar-color: #000000 #272727;
@@ -258,7 +270,7 @@ input[type='range'] {
   background-image: var(--bronze-gradient);
 }
 
-.available-tables-header, .showdown-header {
+.available-tables-header, .showdown-header, .game-log-header {
   color: var(--dark-text-color);
   background-image: var(--poker-card-gradient);
 }
@@ -272,7 +284,9 @@ input[type='range'] {
 }
 
 .available-tables-message, .showdown-message {
-  padding-top: 25%;
+  position: absolute;
+  top: 50%;
+  left: 25px;
   text-align: center;
   font-size: 17px;
 }
@@ -318,4 +332,47 @@ input[type='range'] {
 
 .message-word:nth-child(3) {
   animation-delay: 8s;
+}
+
+.game-log-container {
+  display: flex;
+  flex-direction: column;
+}
+
+.game-log-header {
+  padding-left: 5px;
+}
+
+.game-log-line {
+  margin: 5px 5px 5px 5px;
+}
+
+.game-log-chat {
+  display: flex;
+}
+
+.chat-input {
+  flex: 1;
+  padding: 0px 5px 1px 5px;
+  border-top: var(--poker-card-color);
+  border-width: 2px 0px 0px 0px;
+  border-style: solid;
+}
+
+.chat-input::placeholder {
+  color: var(--placeholder-text-color);
+}
+
+.chat-send-button, .chat-input {
+  background-image: var(--poker-table-gradient);
+  color: var(--poker-card-color);
+  font-weight: bold;
+  font-size: 16px;
+}
+
+.chat-send-button {
+  border-top: var(--poker-card-color);
+  border-left: var(--poker-card-color);
+  border-width: 2px 0px 0px 2px;
+  border-style: solid;
 }

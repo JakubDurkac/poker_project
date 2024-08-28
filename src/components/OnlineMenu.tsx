@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
 import { ClientAttributes, PlayerState, Showdown } from "../types";
 import LastShowdownInfo from "./LastShowdownInfo";
+import ChatLog from "./ChatLog";
 
 interface Props {
   makeInGameChoice: (type: string, data: number) => void;
@@ -116,6 +117,7 @@ const OnlineMenu = ({
         Fold
       </button>
       <LastShowdownInfo showdownObjects={showdownObjects} />
+      <ChatLog />
     </div>
   );
 };

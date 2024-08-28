@@ -1,6 +1,7 @@
 import { useState } from "react";
 import AvailableTablesList from "./AvailableTablesList";
 import { ClientAttributes, Table } from "../types";
+import ChatLog from "./ChatLog";
 
 interface Props {
   availableTables: Table[];
@@ -82,6 +83,7 @@ const OfflineMenu = ({
         clientAttributes={clientAttributes}
         joinTable={joinTable}
       />
+      <ChatLog />
     </div>
   );
 };

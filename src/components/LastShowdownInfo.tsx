@@ -14,7 +14,9 @@ const LastShowdownInfo = ({ showdownObjects }: Props) => {
       </div>
 
       {showdownObjects.length > 0 ? (
-        <>{generateShowdownHtml(showdownObjects)}</>
+        <div className="showdown-list">
+          {generateShowdownHtml(showdownObjects)}
+        </div>
       ) : (
         <div className="showdown-message">Engage in a showdown to see.</div>
       )}
