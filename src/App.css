@@ -344,6 +344,7 @@ input[type='range'] {
 }
 
 .game-log-line {
+  word-break: break-word;
   margin: 5px 5px 5px 5px;
 }
 
@@ -375,4 +376,10 @@ input[type='range'] {
   border-left: var(--poker-card-color);
   border-width: 2px 0px 0px 2px;
   border-style: solid;
+}
+
+.chat-message-author {
+  background-image: var(--poker-table-gradient);
+  padding: 2px 3px 2px 3px;
+  border-radius: 3px;
 }

@@ -11,6 +11,7 @@ import {
   Showdown,
   Suit,
   Rank,
+  ChatMessage,
 } from "./types";
 
 const initialClientAttributes: ClientAttributes = {
@@ -61,6 +62,47 @@ function App() {
 
   const [availableTables, setAvailableTables] = useState<Table[]>([]);
   const [showdownObjects, setShowdownObjects] = useState<Showdown[]>([]);
+
+  const [chatMessages, setChatMessages] = useState<ChatMessage[]>([
+    {
+      author: "system",
+      message: "Chat and system messages here!",
+    },
+  ]);
+
+  const addChatMessage = (author: string, message: string) => {
+    const newMessage: ChatMessage = {
+      author: author,
+      message: message,
+    };
+
+    setChatMessages((prevMessages) => [...prevMessages, newMessage]);
+
+    const { name, socket, isPlaying } = clientAttributes;
+    if (isPlaying && name && socket) {
+      const dataToSend = {
+        chatMessage: newMessage,
+      };
+
+      const message = {
+        type: "chatMessage",
+        data: dataToSend,
+      };
+
+      if (socket) {
+        socket.send(JSON.stringify(message));
+      }
+    }
+  };
+
+  const addChatMessageWithoutSending = (author: string, message: string) => {
+    const newMessage: ChatMessage = {
+      author: author,
+      message: message,
+    };
+
+    setChatMessages((prevMessages) => [...prevMessages, newMessage]);
+  };
 
   const connectToServer = (
     playerName: string,
@@ -155,6 +197,11 @@ function App() {
 
       case "showdown":
         setShowdownObjects(message.data);
+        break;
+
+      case "chatMessage":
+        const { chatAuthor, chatMessage } = message.data;
+        addChatMessageWithoutSending(chatAuthor, chatMessage);
         break;
 
       default:
@@ -312,6 +359,8 @@ function App() {
           playerStates={playerStates}
           clientAttributes={clientAttributes}
           showdownObjects={showdownObjects}
+          chatMessages={chatMessages}
+          addChatMessage={addChatMessage}
         />
       ) : (
         <OfflineMenu
@@ -319,6 +368,8 @@ function App() {
           clientAttributes={clientAttributes}
           connectToServer={connectToServer}
           joinTable={joinTable}
+          chatMessages={chatMessages}
+          addChatMessage={addChatMessage}
         />
       )}
     </div>

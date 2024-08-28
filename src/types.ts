@@ -92,3 +92,8 @@ export interface Showdown {
         tieBreakers: number[]
     };
 }
+
+export interface ChatMessage {
+    author: string;
+    message: string;
+}

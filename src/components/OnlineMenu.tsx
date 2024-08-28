@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { ClientAttributes, PlayerState, Showdown } from "../types";
+import { ChatMessage, ClientAttributes, PlayerState, Showdown } from "../types";
 import LastShowdownInfo from "./LastShowdownInfo";
 import ChatLog from "./ChatLog";
 
@@ -8,6 +8,8 @@ interface Props {
   playerStates: PlayerState[];
   clientAttributes: ClientAttributes;
   showdownObjects: Showdown[];
+  chatMessages: ChatMessage[];
+  addChatMessage: (author: string, message: string) => void;
 }
 
 const OnlineMenu = ({
@@ -15,6 +17,8 @@ const OnlineMenu = ({
   playerStates,
   clientAttributes,
   showdownObjects,
+  chatMessages,
+  addChatMessage,
 }: Props) => {
   const localPlayer = playerStates[0][0];
   const { balance, currentBid, isTheirTurn } = localPlayer;
@@ -117,7 +121,11 @@ const OnlineMenu = ({
         Fold
       </button>
       <LastShowdownInfo showdownObjects={showdownObjects} />
-      <ChatLog />
+      <ChatLog
+        chatMessages={chatMessages}
+        addChatMessage={addChatMessage}
+        clientAttributes={clientAttributes}
+      />
     </div>
   );
 };

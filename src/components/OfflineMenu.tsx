@@ -1,6 +1,6 @@
 import { useState } from "react";
 import AvailableTablesList from "./AvailableTablesList";
-import { ClientAttributes, Table } from "../types";
+import { ChatMessage, ClientAttributes, Table } from "../types";
 import ChatLog from "./ChatLog";
 
 interface Props {
@@ -12,6 +12,8 @@ interface Props {
     bigBlindPrice: number
   ) => void;
   joinTable: (tableName: string) => void;
+  chatMessages: ChatMessage[];
+  addChatMessage: (author: string, message: string) => void;
 }
 
 const OfflineMenu = ({
@@ -19,6 +21,8 @@ const OfflineMenu = ({
   clientAttributes,
   connectToServer,
   joinTable,
+  chatMessages,
+  addChatMessage,
 }: Props) => {
   const [inputName, setInputName] = useState("");
   const [buyInPrice, setBuyInPrice] = useState(800);
@@ -83,7 +87,11 @@ const OfflineMenu = ({
         clientAttributes={clientAttributes}
         joinTable={joinTable}
       />
-      <ChatLog />
+      <ChatLog
+        chatMessages={chatMessages}
+        addChatMessage={addChatMessage}
+        clientAttributes={clientAttributes}
+      />
     </div>
   );
 };
