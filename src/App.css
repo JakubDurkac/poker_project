@@ -7,6 +7,8 @@
   --poker-card-hearts-color: #F8312F;
   --placeholder-text-color: #c7c2bc;
   --dark-text-color: #252525;
+  --scrollbar-primary-color: #000000;
+  --scrollbar-secondary-color: #272727;
   --poker-card-gradient: linear-gradient(to bottom right, #FDFCFB, #eccda8);
   --poker-card-backside-gradient: linear-gradient(to bottom right, #8d0000, #cc0000, #7c0000);
   --base-gradient: linear-gradient(to bottom right, #0f0000, #2b0000, #720000);
@@ -167,7 +169,7 @@ body, html {
   background-image: var(--dark-gradient);
   overflow-y: auto;
   scrollbar-width: thin;
-  scrollbar-color: #000000 #272727;
+  scrollbar-color: var(--scrollbar-primary-color) var(--scrollbar-secondary-color);
 }
 
 .menu-button, .name-input {
@@ -224,7 +226,7 @@ input[type='range'] {
   flex: 1;
   overflow-y: auto;
   scrollbar-width: thin;
-  scrollbar-color: #000000 #272727;
+  scrollbar-color: var(--scrollbar-primary-color) var(--scrollbar-secondary-color);
 }
 
 .table-to-join, .showdown-line {
@@ -353,7 +355,7 @@ input[type='range'] {
 
 .game-log-line {
   word-break: break-word;
-  margin: 5px 5px 5px 5px;
+  margin: 2px 5px 2px 5px;
 }
 
 .game-log-chat {
@@ -388,7 +390,7 @@ input[type='range'] {
 
 .chat-message-author {
   background-image: var(--poker-table-gradient);
-  padding: 2px 3px 2px 3px;
+  padding: 0px 3px 0px 3px;
   border-radius: 3px;
 }
 
