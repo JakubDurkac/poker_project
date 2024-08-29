@@ -102,7 +102,7 @@ export function generateTableHtml(
 ) {
   return (
     <div className="table-to-join" key={table.name}>
-      <span>{table.name}</span>
+      <span className="table-name">{table.name}</span>
       <span>${table.buyIn}</span>
       <span>${table.bigBlind}</span>
       <button

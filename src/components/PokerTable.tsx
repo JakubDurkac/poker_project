@@ -19,12 +19,20 @@ const PokerTable = ({
     );
   });
 
+  const { socket, isConnected } = clientAttributes;
+
+  const handleDisconnect = () => {
+    if (socket) {
+      socket.close();
+    }
+  };
+
   return (
     <div className="poker-table-container">
       <div className="poker-table">
         <div className="poker-community-area">
           {generateCardsHtml(communityState[0].cards)}
-          {clientAttributes.isConnected ? (
+          {isConnected ? (
             <div>${communityState[0].balance}</div>
           ) : (
             <div className="welcome-message">
@@ -35,6 +43,11 @@ const PokerTable = ({
           )}
         </div>
         {pokerPlayerComponents}
+        {isConnected && (
+          <button className="disconnect-button" onClick={handleDisconnect}>
+            <img className="icon" src="/src/assets/disconnect_icon.png" />
+          </button>
+        )}
       </div>
     </div>
   );

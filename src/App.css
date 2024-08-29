@@ -132,6 +132,8 @@ body, html {
 }
 
 .poker-cards-box {
+  align-content: center;
+  justify-content: center;
   display: flex;
   gap: 8px;
 }
@@ -157,6 +159,7 @@ body, html {
   gap: 20px;
   flex: 1;
   max-width: 340px;
+  min-width: 340px;
   padding: 20px;
   color: var(--poker-card-color);
   font-weight: 600;
@@ -190,11 +193,11 @@ body, html {
   color: var(--placeholder-text-color);
 }
 
-.menu-button:hover, .join-table-button:hover, .chat-send-button:hover {
+.menu-button:hover, .join-table-button:hover, .chat-send-button:hover, .disconnect-button:hover {
   filter: brightness(1.2);
 }
 
-.menu-button:active, .join-table-button:active, .chat-send-button:active {
+.menu-button:active, .join-table-button:active, .chat-send-button:active, .disconnect-button:active {
   filter: brightness(1.4);
 }
 
@@ -232,7 +235,7 @@ input[type='range'] {
 }
 
 .table-to-join {
-  grid-template-columns: 90px 75px 60px 60px;
+  grid-template-columns: 105px 60px 60px 60px;
 }
 
 .showdown-line {
@@ -244,6 +247,11 @@ input[type='range'] {
   flex-direction: column;
   gap: 5px;
   align-self: center;
+  overflow: hidden;
+}
+
+.table-name {
+  overflow: hidden;
 }
 
 .showdown-hand {
@@ -382,4 +390,24 @@ input[type='range'] {
   background-image: var(--poker-table-gradient);
   padding: 2px 3px 2px 3px;
   border-radius: 3px;
+}
+
+.disconnect-button {
+  display: flex;
+  position: absolute;
+  bottom: 0px;
+  right: 0px;
+  padding: 0px;
+  background-image: var(--dark-gradient);
+  border-top: var(--primary-border);
+  border-left: var(--primary-border);
+  border-bottom: none;
+  border-right: none;
+  border-radius: 5px;
+}
+
+.icon {
+  height: 45px;
+  align-self: center;
+  justify-self: center;
 }

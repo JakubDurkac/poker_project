@@ -34,6 +34,19 @@ const emptySeatPlayer: Player = {
   statusData: 0,
 };
 
+const initialCommunityState = {
+  balance: 0,
+  cards: [
+    { suit: Suit.DIAMONDS, rank: Rank.TEN },
+    { suit: Suit.DIAMONDS, rank: Rank.JACK },
+    { suit: Suit.DIAMONDS, rank: Rank.QUEEN },
+    { suit: Suit.DIAMONDS, rank: Rank.KING },
+    { suit: Suit.DIAMONDS, rank: Rank.ACE },
+  ],
+};
+
+const allowedNamePattern = /^[a-zA-Z0-9_-]+$/;
+
 function getPlayerCopy(player: Player) {
   return JSON.parse(JSON.stringify(player));
 }
@@ -49,16 +62,7 @@ function App() {
     playerStates.push(useState<Player>(getPlayerCopy(emptySeatPlayer)));
   }
 
-  const communityState = useState<Community>({
-    balance: 0,
-    cards: [
-      { suit: Suit.DIAMONDS, rank: Rank.TEN },
-      { suit: Suit.DIAMONDS, rank: Rank.JACK },
-      { suit: Suit.DIAMONDS, rank: Rank.QUEEN },
-      { suit: Suit.DIAMONDS, rank: Rank.KING },
-      { suit: Suit.DIAMONDS, rank: Rank.ACE },
-    ],
-  });
+  const communityState = useState<Community>(initialCommunityState);
 
   const [availableTables, setAvailableTables] = useState<Table[]>([]);
   const [showdownObjects, setShowdownObjects] = useState<Showdown[]>([]);
@@ -104,12 +108,36 @@ function App() {
     setChatMessages((prevMessages) => [...prevMessages, newMessage]);
   };
 
+  const isValidName = (playerName: string) => {
+    if (playerName === "") {
+      addChatMessageWithoutSending("system", "Enter your name.");
+      return false;
+    }
+
+    if (playerName.length > 11) {
+      addChatMessageWithoutSending("system", "Name is too long. (> 10)");
+      return false;
+    }
+
+    if (!allowedNamePattern.test(playerName)) {
+      addChatMessageWithoutSending(
+        "system",
+        "Invalid name. Use english letters, numbers, underscore and dash."
+      );
+      return false;
+    }
+
+    return true;
+  };
+
   const connectToServer = (
     playerName: string,
     buyInPrice: number,
     bigBlindPrice: number
   ) => {
-    // todo - if (!isValidName(playerName)) {notify user; return;}
+    if (!isValidName(playerName)) {
+      return;
+    }
 
     const newSocket = new WebSocket("ws://localhost:3000");
     setClientAttributes((prevAttributes) => {
@@ -125,15 +153,23 @@ function App() {
     newSocket.addEventListener("open", () => {
       setClientIsConnected(true);
       sendInitialMessage(newSocket, playerName, buyInPrice, bigBlindPrice);
+      addChatMessageWithoutSending("system", "Connected to server.");
     });
     newSocket.addEventListener("message", (event) => {
       handleIncomingMessage(newSocket, playerName, event);
     });
     newSocket.addEventListener("error", () => {
-      console.log("Server Error.");
+      addChatMessageWithoutSending("system", "Server Error.");
     });
     newSocket.addEventListener("close", () => {
       setClientAttributes(initialClientAttributes);
+      const setCommunityState = communityState[1];
+      setCommunityState(initialCommunityState);
+      playerStates.forEach((playerState) => {
+        const setPlayerState = playerState[1];
+        setPlayerState(getPlayerCopy(emptySeatPlayer));
+      });
+      addChatMessageWithoutSending("system", "Disconnected from server.");
     });
   };
 
