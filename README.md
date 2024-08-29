@@ -1,50 +1,28 @@
-# React + TypeScript + Vite
+# [moodypoker.com](https://moodypoker.com/)
+A poker web app that focuses on online gameplay and offers all the essential features for comfortable online poker.
+- **frontend** (this) written using **React**, **TypeScript**, **HTML** and **CSS**, deployed using [Vercel](https://vercel.com/)
+- for **backend** (management of tables, players, bidding rounds, calculating strength of player's best combination, communication, etc.), look [here](https://github.com/JakubDurkac/poker_project_backend)
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+## Features
 
-Currently, two official plugins are available:
+### Poker Table and Menu
+- **poker table** for 2-6 players at once, communicating all the necessary game info to the players in real time
+- simple **menu** to access all the interactive options at one place
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react/README.md) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+### Game Setup
+- on the right side, leave default or choose your preffered Buy-In and Big Blind prices (these shall be used for creating your own table)
+- enter your name and press **Play Online** to enter the online matchmaking
+- at this point, you may choose table with your name (create new game), then your table is displayed to others and free to be joined by others
+- at the same time, other active tables are displayed (showing current number of players at the table), and you may choose to join any of them
+- pressing **SIT** next to a table will make you join with starting balance equal to Buy-In, eligible to make active in-game choices after the start of the next round
 
-## Expanding the ESLint configuration
+<img src="/images/screenshots/choose-table.png">
 
-If you are developing a production application, we recommend updating the configuration to enable type aware lint rules:
-
-- Configure the top-level `parserOptions` property like this:
-
-```js
-export default tseslint.config({
-  languageOptions: {
-    // other options...
-    parserOptions: {
-      project: ['./tsconfig.node.json', './tsconfig.app.json'],
-      tsconfigRootDir: import.meta.dirname,
-    },
-  },
-})
-```
-
-- Replace `tseslint.configs.recommended` to `tseslint.configs.recommendedTypeChecked` or `tseslint.configs.strictTypeChecked`
-- Optionally add `...tseslint.configs.stylisticTypeChecked`
-- Install [eslint-plugin-react](https://github.com/jsx-eslint/eslint-plugin-react) and update the config:
-
-```js
-// eslint.config.js
-import react from 'eslint-plugin-react'
-
-export default tseslint.config({
-  // Set the react version
-  settings: { react: { version: '18.3' } },
-  plugins: {
-    // Add the react plugin
-    react,
-  },
-  rules: {
-    // other rules...
-    // Enable its recommended rules
-    ...react.configs.recommended.rules,
-    ...react.configs['jsx-runtime'].rules,
-  },
-})
-```
+### During Game
+- thanks to React, offline menu is simply replaced by in-game menu featuring in-game choices, hand showdown results and chat
+- in-game choices including **Raise**, **Call**, **Check** and **Fold** are shown to the player
+- for each player, their **names**, **balance** and **current bids** are shown and updated in real time
+- **community area** including current **pot** and **community cards** is shown and updated in real time
+- when 2+ players are present, table becomes active automatically, dealer is chosen, small and big blind is collected, cards are being dealt, players make choices in bidding rounds
+- in-game choices are enabled or disabled based on the context, including player's current balance, current bid, highest bid, etc.
+- server processes each in-game choice, then progressing the game by choosing who's turn it is now, concluding bidding rounds, concluding hands, etc.
