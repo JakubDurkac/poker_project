@@ -45,7 +45,7 @@ const PokerTable = ({
         {pokerPlayerComponents}
         {isConnected && (
           <button className="disconnect-button" onClick={handleDisconnect}>
-            <img className="icon" src="/src/assets/disconnect_icon.png" />
+            <img className="icon" src="/public/disconnect_icon.png" />
           </button>
         )}
       </div>
