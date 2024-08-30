@@ -10,9 +10,9 @@ A poker web app that focuses on online gameplay and offers all the essential fea
 - simple **menu** to access all the interactive options at one place
 
 ### Game Setup
-- on the right side, leave default or choose your preffered Buy-In and Big Blind prices (these shall be used for creating your own table)
+- on the right side, leave default or choose your preferred **Buy-In** and **Big Blind** prices (these shall be used for creating your own table)
 - enter your name and press **Play Online** to join the online matchmaking
-- at this point, you may choose table with your name (create new game), your table is displayed to others and free to be joined by others
+- at this point, you may choose table with your name (create new game), after which your table is displayed to others and free to be joined by others
 - at the same time, other active tables are displayed (showing current number of players at the table), and you may choose to join any of them
 - pressing **SIT** next to a table will make you join with starting balance equal to Buy-In, eligible to make active in-game choices after the start of the next round
 
