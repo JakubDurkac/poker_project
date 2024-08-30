@@ -139,7 +139,10 @@ function App() {
       return;
     }
 
-    const newSocket = new WebSocket("ws://localhost:3000");
+    // const newSocket = new WebSocket("ws://localhost:3000"); // local server
+    const newSocket = new WebSocket(
+      "wss://poker-project-backend-moodypoker.onrender.com"
+    ); // official server
     setClientAttributes((prevAttributes) => {
       return {
         ...prevAttributes,
