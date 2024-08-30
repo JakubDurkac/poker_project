@@ -39,7 +39,7 @@ export function generateCardsHtml(cards: Array<Card | null>) {
           <img
             key={index}
             className={card ? "poker-card" : "poker-card poker-card-backside"}
-            src={`/src/assets/card-images/${
+            src={`/card-images/${
               card ? String(card.suit) + String(card.rank) : "backside"
             }.png`}
           />
@@ -196,9 +196,7 @@ function generateCardsIconsHtml(cards: Card[]) {
           <img
             key={index}
             className="poker-card-icon"
-            src={`/src/assets/card-images/${
-              String(card.suit) + String(card.rank)
-            }.png`}
+            src={`/card-images/${String(card.suit) + String(card.rank)}.png`}
           />
         );
       })}
